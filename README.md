@@ -1,3 +1,3 @@
 # swen343-human-resources
 
-#Run "npm install"
+Run "npm install"
