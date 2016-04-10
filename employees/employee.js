@@ -13,7 +13,7 @@ var employeeSchema = new mongoose.Schema({
 	dob: Date,
 	phone: String,
 	salary: Number,
-    lastModified: Timestamp
+    lastModified: Date
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);

@@ -1,10 +1,9 @@
 //Lets require/import the HTTP module
 var http = require('http');
-var Employee = require('./employee');
+var Employee = require('./employees/employee');
 var express = require('express')
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var Employee = require('./employee');
 
 mongoose.connect('mongodb://localhost:27017/employees');
 
