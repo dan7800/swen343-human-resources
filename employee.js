@@ -12,7 +12,8 @@ var employeeSchema = new mongoose.Schema({
 	gender: String,
 	dob: Date,
 	phone: String,
-	salary: Number
+	salary: Number,
+	lastModified: Date
 })
 
 module.exports = mongoose.model('Employee', employeeSchema)
