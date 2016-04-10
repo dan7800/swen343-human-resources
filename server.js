@@ -41,7 +41,7 @@ employeesRoute.post(function(req,res){
 	employee.dob = req.body.dob;
 	employee.phone = req.body.phoneNumber;
 	employee.salary = req.body.salary;
-	employee.lastModified = req.body.sala
+	employee.lastModified = req.body.lastModified
 
 	employee.save(function(err) {
     	if (err)
