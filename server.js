@@ -60,11 +60,10 @@ employeesRoute.get(function(req, res) {
 });
 
 
-var employeeRoute = router.route('/employees/:beer_id');
+var employeeRoute = router.route('/employees/:employee_id');
 
 employeeRoute.get(function(req, res) {
-  // Use the Beer model to find a specific beer
-  Employee.findById(req.params.beer_id, function(err, employee) {
+  Employee.findById(req.params.employee_id, function(err, employee) {
     if (err)
       res.send(err);
 
