@@ -1,32 +1,19 @@
-var mongoose = reqire('mongoose');
-
-mongoose.connect('mongodb://localhost/employees');
+var mongoose = require('mongoose');
 
 var employeeSchema = new mongoose.Schema({
-	name: String,
-	address: String,
-	age: Number
-	phoneNumber: String
+	firstName: String,
+	lastName: String,
+	position: String,
 	department: String,
+	street: String,
+	city: String,
+	state: String,
+	zipcode: Number,
+	gender: String,
+	dob: Date,
+	phone: String,
 	salary: Number
 })
 
-var employee = mongoose.model('Employee', employeeSchema)
+module.exports = mongoose.model('Employee', employeeSchema)
 
-
-app.get("/employees", function(req, res) {
-
-	
-});
-
-app.post("/employees", function(req, res) {
-});
-
-app.get("/employees/:id", function(req, res) {
-});
-
-app.put("/employees/:id", function(req, res) {
-});
-
-app.delete("/employees/:id", function(req, res) {
-});
