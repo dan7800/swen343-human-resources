@@ -1,7 +1,7 @@
 //Lets require/import the HTTP module
 var http = require('http');
 var Employee = require('./employees/employee');
-var express = require('express')
+var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
@@ -18,13 +18,12 @@ var port = 3000;
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  res.json({ message: 'HR Module Homepage' }); 
+  res.json({ message: 'HR API Module' });
 });
 
 var employeesRoute = router.route('/employees');
 
-employeesRoute.post(function(req,res){
-
+employeesRoute.post(function(req, res){
 
 	var employee = new Employee();
 
@@ -40,7 +39,7 @@ employeesRoute.post(function(req,res){
 	employee.dob = req.body.dob;
 	employee.phone = req.body.phoneNumber;
 	employee.salary = req.body.salary;
-	employee.lastModified = req.body.lastModified
+	employee.lastModified = req.body.lastModified;
 
 	employee.save(function(err) {
     	if (err)
@@ -71,6 +70,6 @@ employeeRoute.get(function(req, res) {
 });
 
 
-app.use('/api',router);
+app.use('/api', router);
 app.listen(port);
 console.log('Running on port ' + port);
