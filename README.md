@@ -11,4 +11,5 @@ Description
 
 ## API
 ###End Points
-
+    api/employees
+    api/employees/:id
