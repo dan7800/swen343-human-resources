@@ -1,7 +1,11 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+var mongoose = require('mongoose');
 var server = require('../server');
 var should = chai.should();
+var assert = chai.assert;
+
+var employee = require('../employees/employee');
 
 chai.use(chaiHttp);
 
@@ -25,8 +29,11 @@ it('employee.createEntry() should create a new document in the mongodb database'
         .post('/api/employees')
         .send(req)
         .end(function(err, res) {
-            console.log(res);
             res.should.have.status(200);
+            employee.findById(res.body.data._id, function (err, doc){
+                assert.equal(req.body.firstName, doc.firstName);
+                assert.equal(req.body.lastName, doc.lastName);
+            });
             done();
         });
 });
