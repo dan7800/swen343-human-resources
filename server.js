@@ -71,5 +71,9 @@ employeeRoute.get(function(req, res) {
 
 
 app.use('/api', router);
-app.listen(port);
-console.log('Running on port ' + port);
+var server = http.createServer(app);
+server.listen(port, function() {
+    console.log("Node server running on http://localhost:3000");
+});
+
+module.exports = app;
