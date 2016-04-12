@@ -6,7 +6,7 @@ Description
 
 ## Installation
 
-	Clone the repo and to install all dependencies run:
+    Clone the repo and to install all dependencies run:
     npm install
 
 ## API
