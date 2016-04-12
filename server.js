@@ -73,7 +73,7 @@ employeeRoute.get(function(req, res) {
 app.use('/api', router);
 var server = http.createServer(app);
 server.listen(port, function() {
-    console.log("Node server running on http://localhost:3000");
+    console.log("Node server running on http://localhost:" + port);
 });
 
 module.exports = app;
