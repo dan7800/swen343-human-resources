@@ -1,6 +1,7 @@
 //Lets require/import the HTTP module
 var http = require('http');
 var Employee = require('./employees/employee');
+var Payroll = require('./payroll/calculatePayroll');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -20,7 +21,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
   res.json({ message: 'HR API Module' });
 });
-
+// Start Employee Interface
 var employeesRoute = router.route('/employees');
 
 employeesRoute.post(function(req, res){
@@ -68,8 +69,16 @@ employeeRoute.get(function(req, res) {
     res.json(employee);
   });
 });
+// End Employee Interface
 
+// Start Payroll Interface
+var payrollRoute = router.route('/payroll');
 
+payrollRoute.get(function(req, res) {
+    res.json(Payroll.calculatePayroll())
+});
+
+// End Payroll Interface
 app.use('/api', router);
 var server = http.createServer(app);
 server.listen(port, function() {
