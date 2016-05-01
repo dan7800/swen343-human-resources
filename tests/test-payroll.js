@@ -1,12 +1,12 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/employees');
+var payrollDb = mongoose.connect('mongodb://localhost:27017/payroll');
 var server = require('../server');
 var should = chai.should();
 var assert = chai.assert;
 
-var payroll = require(payrollSchema);
+var payroll = require('../payroll/payrollSchema');
 
 chai.use(chaiHttp);
 
@@ -40,7 +40,7 @@ it('Paying an employee should create a new entry in the payroll table.', functio
 
     Payroll.payEmployee(1);
 
-    payroll.findByEmployeeId(1, function (err, doc){
+    payrollDb.findByEmployeeId(1, function (err, doc){
         assert(doc.paycheckAmount, (req.body.salary/52));
     });
 });

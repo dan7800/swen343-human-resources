@@ -6,7 +6,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost:27017/employees');
+mongoose.createConnection('mongodb://localhost:27017/employees');
 
 var app = express();
 

@@ -11,8 +11,10 @@ var payrollSchema = new mongoose.Schema({
     lastest: Boolean
 });
 
-this.statics.findByEmployeeId = function (id, cb) {
+payrollSchema.statics.findByEmployeeId = function (id, cb) {
     return this.find({ employeeId: id, latest: true}, cb);
 };
+
+
 
 module.exports = mongoose.model('Payroll', payrollSchema);
