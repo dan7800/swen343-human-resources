@@ -47,3 +47,4 @@ exports.employee = function() {
         db.employees.remove(selector)
     };
 };
+
