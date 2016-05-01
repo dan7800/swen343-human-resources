@@ -1,7 +1,7 @@
 //Lets require/import the HTTP module
 var http = require('http');
 var Employee = require('./employees/employee');
-var Payroll = require('./payroll/calculatePayroll');
+var Payroll = require('./payroll/payroll');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
