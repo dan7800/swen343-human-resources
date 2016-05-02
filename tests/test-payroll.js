@@ -6,7 +6,7 @@ var server = require('../server');
 var should = chai.should();
 var assert = chai.assert;
 
-var payroll = require('../payroll/payrollSchema');
+var payroll = require("../payroll/payroll");
 
 chai.use(chaiHttp);
 
@@ -15,7 +15,7 @@ it('There should be stubbed funcionality in calculatePayroll', function(done) {
         .get('/api/payroll')
         .end(function(err, res) {
             res.should.have.status(200);
-            assert.equal(JSON.parse(res.body), Number.MAX_VALUE);
+            chai.expect({'Employee Payroll (Current Date)' : Number.MAX_VALUE}).to.eql(JSON.parse(res.body));
             done();
         });
 });
@@ -38,9 +38,12 @@ it('Paying an employee should create a new entry in the payroll table.', functio
     req.body.lastModified = Date.now();
     chai.request(server).post('/api/employees');
 
-    Payroll.payEmployee(1);
+    payroll.payEmployee(1);
 
     payrollDb.findByEmployeeId(1, function (err, doc){
+        console.log(doc);
+        console.log(req.body.salary/52);
         assert(doc.paycheckAmount, (req.body.salary/52));
+        done();
     });
 });
