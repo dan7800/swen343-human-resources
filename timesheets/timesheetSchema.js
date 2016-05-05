@@ -5,15 +5,8 @@
 
 var timesheetSchema = new mongoose.Schema({
     employeeId: String,
-    mon: Number,
-    tues: Number,
-    wed: Number,
-    thur: Number,
-    fri: Number,
-    isApproved: Boolean,
+    total: Number,
     dateCreated: Date,
-    latest: Boolean,
-    lastModified: Date
 });
 
 timesheetSchema.statics.getByEmployeeIdAndDateCreated = function (id, date, cb) {
