@@ -4,7 +4,7 @@
 
 var app = require("../server.js")
 var employee = require("employeeClass.js")
-var timeCard = require("timesheetSchema")
+var timeCard = require("timesheet")
 
 
 app.post('/createEmployee', function(request, response){
@@ -15,6 +15,6 @@ app.post('/createEmployee', function(request, response){
 });
 
 app.post('/createTimecard', function (request, response) {
-    
+    timeCard.calculatePay(request.body.mon, request.body.tues, request.body.wed, request.body.thurs, request.body.fri, request.body.sat, request.body.sun, request.body.empID);
 })
 
