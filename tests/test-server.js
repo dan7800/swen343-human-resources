@@ -33,7 +33,7 @@ it('employee.createEntry() should create a new document in the mongodb database'
             employee.findById(res.body.data._id, function (err, doc){
                 assert.equal(req.body.firstName, doc.firstName);
                 assert.equal(req.body.lastName, doc.lastName);
+                done();
             });
-            done();
         });
 });

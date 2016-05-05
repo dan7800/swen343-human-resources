@@ -1,13 +1,8 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/employees');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("Established mongodb connection");
-});
+var employeeModel = require('./employee');
 
-exports.employee = function() {
-    exports.createEntry = function createEntry(first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, salary) {
+module.exports = {
+    createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, salary) {
         var info = {
             'firstName': first,
             'lastName': last,
@@ -23,28 +18,35 @@ exports.employee = function() {
             'salary': salary,
             'lastModified': Date.now()
         };
-        db.employees.insert(info);
-    };
+        employeeModel.insert(info);
+    },
 
-    exports.updateEntry = function updateEntry(first, last, map) {
+    updateEntry: function (first, last, map) {
         var selector = {
             'firstName': first,
             'lastName': last
         };
-        db.employees.update(selector,
+        employeeModel.update(selector,
             {
                 $set: map,
                 $currentDate: {'lastModified': true}
             }
         );
-    };
+    },
 
-    exports.deleteEntry = function deleteEntry(first, last) {
+    deleteEntry: function (first, last) {
         var selector = {
             'firstName': first,
             'lastName': last
         };
-        db.employees.remove(selector)
-    };
+        employeeModel.remove(selector)
+    },
+
+    getSalaryByEmployeeId: function (id, cb) {
+        return mongoose.model('Employee')
+            .findById(id)
+            .select('salary')
+            .exec(cb);
+    }
 };
 

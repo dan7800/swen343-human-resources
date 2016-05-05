@@ -3,10 +3,12 @@
  */
 var mongoose = require('mongoose');
 var Payroll = require('./payrollSchema');
-var Employee = require('../employees/employee');
+var Employee = require('../employees/employeeClass');
 
 module.exports.payEmployee = function(id){
     var paycheck = (Employee.getSalaryByEmployeeId(id, function (err, obj) {
+        console.log(err);
+        console.log(obj);
         var info = {
             employeeId: id,
             paycheckAmount: obj['salary'],
