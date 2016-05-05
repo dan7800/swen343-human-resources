@@ -16,5 +16,11 @@ var employeeSchema = new mongoose.Schema({
     lastModified: Date
 });
 
+employeeSchema.statics.getSalaryByEmployeeId = function (id, cb) {
+	return mongoose.model('Employee').findById(id)
+		.select('salary')
+		.exec(cb);
+};
+
 module.exports = mongoose.model('Employee', employeeSchema);
 

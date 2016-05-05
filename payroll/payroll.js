@@ -2,26 +2,30 @@
  * This file handles the payroll of employees.
  */
 var mongoose = require('mongoose');
-var payrollDb = mongoose.createConnection('mongodb://localhost:27017/payroll').db;
-var employeeDb = mongoose.createConnection('mongodb://localhost:27017/employees').db;
-payrollDb.on('error', console.error.bind(console, 'connection error:'));
-employeeDb.on('error', console.error.bind(console, 'connection error:'));
-payrollDb.once('open', function() {
-    console.log("Established mongodb connection");
-});
-employeeDb.once('open', function() {
-    console.log("Established mongodb connection");
-});
+var Payroll = require('./payrollSchema');
+var Employee = require('../employees/employee');
+
 module.exports.payEmployee = function(id){
-    var paycheck = (employeeDb.find({id: id}).select('salary'))/52;
-    var info = {
-        employeeId: id,
-        paycheckAmount: paycheck,
-        datePaid: new Date(),
-        lastModified: new Date(),
-        lastest: true
-    };
-    payrollDb.insert(info)
+    var paycheck = (Employee.getSalaryByEmployeeId(id, function (err, obj) {
+        var info = {
+            employeeId: id,
+            paycheckAmount: obj['salary'],
+            datePaid: new Date(),
+            lastModified: new Date(),
+            lastest: true
+        };
+        var newPayroll = new Payroll(info);
+        newPayroll.save(new function(error, data){
+            if(error){
+                //res.json(error);
+                console.log("Could not save due to error", error);
+            }
+            else{
+                // res.json(data);
+                console.log("Saved payroll successfully")
+            }
+        });
+    }));
 };
 
 /**
