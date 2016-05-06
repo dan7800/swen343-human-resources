@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var employeeModel = require('./employee');
-
+mongoose.connect('mongodb://localhost:27017/employees');
 module.exports = {
     createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, salary) {
         var info = {

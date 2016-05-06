@@ -8,6 +8,9 @@ var should = chai.should();
 var assert = chai.assert;
 
 var payroll = require("../payroll/payroll");
+mongoose.createConnection('mongodb://localhost:27017/payroll');
+mongoose.createConnection('mongodb://localhost:27017/employee');
+
 
 chai.use(chaiHttp);
 
@@ -41,12 +44,20 @@ it('Paying an employee should create a new entry in the payroll table.', functio
     var EmpModel = mongoose.model("Employee");
     var employee = new EmpModel(employeeInfo);
     employee.save();
-    console.log("Saved Employee");
     payroll.payEmployee(employee.id);
-    console.log('paid employee');
     EmployeeClass.getSalaryByEmployeeId(employee.id, function (err, obj){
-        console.log("Asserting");
         assert(obj['salary'], employee.salary);
+        done();
+    });
+});
+
+it('There are no entries in the db, so it should return null', function(done) {
+   
+    payroll.payEmployee(null);
+    EmployeeClass.getSalaryByEmployeeId(null, function (err, obj){
+        console.log(obj);
+        console.log(null === obj);
+        assert(obj, null);
         done();
     });
 });
