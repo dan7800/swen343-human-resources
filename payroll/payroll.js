@@ -1,13 +1,12 @@
 /**
  * This file handles the payroll of employees.
  */
-var mongoose = require('mongoose');
+var db = require('../connection').payrollDb;
 var Payroll = require('./payrollSchema');
 var Employee = require('../employees/employeeClass');
 
 module.exports.payEmployee = function (id) {
     var paycheck = (Employee.getSalaryByEmployeeId(id, function (err, obj) {
-        console.log(obj);
         if (obj != null) {
             var info = {
                 employeeId: id,

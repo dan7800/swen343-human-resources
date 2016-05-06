@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var employeeModel = require('./employee');
-mongoose.connect('mongodb://localhost:27017/employees');
+var db = require('../connection').employeeDb;
 module.exports = {
     createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, salary) {
         var info = {
@@ -43,7 +43,7 @@ module.exports = {
     },
 
     getSalaryByEmployeeId: function (id, cb) {
-        return mongoose.model('Employee')
+        return db.model('Employee')
             .findById(id)
             .select('salary')
             .exec(cb);
