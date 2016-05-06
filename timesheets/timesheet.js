@@ -2,15 +2,19 @@
  * Created by Nick on 5/4/2016.
  */
 var mongoose = require('mongoose');
-var timeSheetModel = require('timesheetSchema');
+var timeSheetModel = require('./timesheetSchema');
 var employeeModel = require('../employees/employeeSchema');
 
 module.exports = {
     calculateAndStorePay: function (mon, tues, wed, thurs, fri, sat, sun, firstName, lastName, dob) {
         // Sum to determine total hours worked
-        var totalHours = mon+tues+wed+thurs+fri+sat+sun;
+        var totalHours = Number(mon)+Number(tues)+Number(wed)+Number(thurs)+Number(fri)+Number(sat)+Number(sun);
+        if (totalHours < 0 || totalHours > 168) { // If the value exceeds the amount of hours in a week, display an error
+            console.log("Total number of hours is too high");
+            return false;
+        }
         // Get the employee id
-        employeeModel.findOne({'firstName': firstName, 'lastName': lastName, 'dob': new Date(dob)}, function (err, emp) {
+        employeeModel.findOne({'firstName': firstName, 'lastName': lastName}, function (err, emp) {
             if (err) {
                 console.log("Error trying to find the given employee: ", err);
                 return false;
@@ -21,7 +25,7 @@ module.exports = {
                 // Create a new timesheet with this data and save it
                 var newTimeSheet = new timeSheetModel();
                 newTimeSheet.total = totalHours;
-                newTimeSheet.employeeID = emp._id;
+                newTimeSheet.employeeId = emp._id;
                 newTimeSheet.dateCreated = Date.now();
 
                 newTimeSheet.save(function (err) {
@@ -63,8 +67,8 @@ module.exports = {
 
     getLatestForEmployee: function (id, cb) {
         return timeSheetModel
-            .findOne()
-            .sort({lastModified: -1})
+            .findOne({'employeeId': id})
+            .sort({dateCreated: -1})
             .exec(cb);
     }
 };

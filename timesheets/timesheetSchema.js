@@ -3,6 +3,8 @@
  * This is how a timesheet will look in the db
  */
 
+var mongoose = require('mongoose');
+
 var timesheetSchema = new mongoose.Schema({
     employeeId: String,
     total: Number,
