@@ -1,33 +1,27 @@
 /**
  * This file handles the payroll of employees.
  */
-var db = require('../connection').payrollDb;
 var Payroll = require('./payrollSchema');
-var Employee = require('../employees/employeeClass');
+var Employee = require('../employees/employee');
 
-module.exports.payEmployee = function (id) {
-    var paycheck = (Employee.getSalaryByEmployeeId(id, function (err, obj) {
-        if (obj != null) {
-            var info = {
-                employeeId: id,
-                paycheckAmount: obj['salary'],
-                datePaid: new Date(),
-                lastModified: new Date(),
-                lastest: true
-            };
-            var newPayroll = new Payroll(info);
+module.exports.payEmployee = function (id, cb) {
+    Employee.getSalaryByEmployeeId(id, function (err, obj) {
+        if (obj != null) { // If we found an employee
+            var newPayroll = new Payroll();
+            newPayroll.employeeId = id;
+            newPayroll.paycheckAmount = obj['salary'];
+            newPayroll.datePaid = new Date();
+            newPayroll.lastModified = new Date();
+            newPayroll.latest = true;
+
             newPayroll.save(new function (error, data) {
                 if (error) {
-                    //res.json(error);
                     console.log("Could not save due to error", error);
-                }
-                else {
-                    // res.json(data);
-                    console.log("Saved payroll successfully")
                 }
             });
         }
-    }));
+        cb();
+    });
 };
 
 /**

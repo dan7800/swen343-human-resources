@@ -4,7 +4,7 @@
 
 var app = require("../server.js");
 var path = require("path");
-var Employee = require("./employeeClass");
+var Employee = require("./employee");
 //var timeCard = require("timesheet");
 
 var express = require("express");

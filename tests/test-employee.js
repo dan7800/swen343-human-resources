@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test';
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var mongoose = require('mongoose');
@@ -5,7 +7,7 @@ var server = require('../server');
 var should = chai.should();
 var assert = chai.assert;
 
-var employee = require('../employees/employee');
+var employeeModel = require('../employees/employeeSchema');
 
 chai.use(chaiHttp);
 
@@ -35,7 +37,7 @@ it('employee.createEntry() should create a new document in the mongodb database'
         .send(req)
         .end(function(err, res) {
             res.should.have.status(200);
-            employee.findOne({ 'firstName': req.firstName, 'lastName': req.lastName }, function (err, emp) {
+            employeeModel.findOne({ 'firstName': req.firstName, 'lastName': req.lastName }, function (err, emp) {
                 if (err) assert(false, "Error trying to find the inserted employee: " + err);
                 if (emp == null) {
                     assert(false, "Could not find the inserted employee");
@@ -44,12 +46,12 @@ it('employee.createEntry() should create a new document in the mongodb database'
                     assert.equal(req.lastName, emp.lastName);
                     assert.equal(req.position, emp.position);
                     assert.equal(req.department, emp.department);
-                    assert.equal(req.street, emp.street);
+                    assert.equal(req.streetAddress, emp.street);
                     assert.equal(req.city, emp.city);
                     assert.equal(req.state, emp.state);
-                    assert.equal(req.zipcode, emp.zipcode);
+                    assert.equal(req.zipCode, emp.zipcode);
                     assert.equal(req.gender, emp.gender);
-                    assert.equal(req.dob, emp.dob);
+                    assert.equal((new Date(req.DOB)).toString(), emp.dob.toString());
                     assert.equal(req.phone, emp.phone);
                     assert.equal(req.salary, emp.salary);
                 }

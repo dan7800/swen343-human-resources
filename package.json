@@ -14,7 +14,6 @@
     "express": "^4.13.3",
     "mocha": "^2.4.5",
     "mongoose": "~4.2.7",
-    "path": "^0.12.7",
-    "database-cleaner": "^0.13.0"
+    "path": "^0.12.7"
   }
 }

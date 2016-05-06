@@ -1,16 +1,31 @@
 //Lets require/import the HTTP module
 var http = require('http');
-var Employee = require('./employees/employee');
-var Payroll = require('./payroll/payroll');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
+// Models
+var Employee = require('./employees/employeeSchema');
+var Payroll = require('./payroll/payroll');
+
+// Routers
 var employeeRouter = require("./employees/app");
 
-mongoose.connect('mongodb://localhost:27017/employees');
+// Config
+var config = require('./_config');
 
 var app = express();
+
+// Setup database with config file
+mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
+	if(err) {
+		console.log('Error connecting to the database. ' + err);
+	} else {
+		console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
+	}
+});
+
+
 
 app.use(express.static("public"));
 

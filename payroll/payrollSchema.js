@@ -9,7 +9,7 @@ var payrollSchema = new mongoose.Schema({
     paycheckAmount: Number,
     datePaid: Date,
     lastModified: Date,
-    lastest: Boolean
+    latest: Boolean
 });
 
 module.exports = mongoose.model('Payroll', payrollSchema);
