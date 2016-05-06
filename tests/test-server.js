@@ -9,31 +9,51 @@ var employee = require('../employees/employee');
 
 chai.use(chaiHttp);
 
+// Clear the employee db after each unit test
+afterEach(function(done){
+    employee.collection.drop();
+    done();
+});
+
 it('employee.createEntry() should create a new document in the mongodb database', function(done) {
     var req = {};
-    req.body = {};
-    req.body.firstName = "Noah";
-    req.body.lastName = "Frank";
-    req.body.position = "SE";
-    req.body.department = "Software Development";
-    req.body.street = "53 Tucan Lane";
-    req.body.city = "Rochester";
-    req.body.state = "New York";
-    req.body.zipcode = 14623;
-    req.body.gender = "Male";
-    req.body.dob = "1995-05-18";
-    req.body.phone = "124-321-5234";
-    req.body.salary = 100000;
-    req.body.lastModified = Date.now();
+    req.firstName = "Noah";
+    req.lastName = "Frank";
+    req.position = "SE";
+    req.department = "Software Development";
+    req.streetAddress = "53 Tucan Lane";
+    req.city = "Rochester";
+    req.state = "New York";
+    req.zipCode = 14623;
+    req.gender = "Male";
+    req.DOB = "1995-05-18";
+    req.phone = "124-321-5234";
+    req.salary = 100000;
+
     chai.request(server)
-        .post('/api/employees')
+        .post('/createEmployee')
         .send(req)
         .end(function(err, res) {
             res.should.have.status(200);
-            employee.findById(res.body.data._id, function (err, doc){
-                assert.equal(req.body.firstName, doc.firstName);
-                assert.equal(req.body.lastName, doc.lastName);
+            employee.findOne({ 'firstName': req.firstName, 'lastName': req.lastName }, function (err, emp) {
+                if (err) assert(false, "Error trying to find the inserted employee: " + err);
+                if (emp == null) {
+                    assert(false, "Could not find the inserted employee");
+                } else {
+                    assert.equal(req.firstName, emp.firstName);
+                    assert.equal(req.lastName, emp.lastName);
+                    assert.equal(req.position, emp.position);
+                    assert.equal(req.department, emp.department);
+                    assert.equal(req.street, emp.street);
+                    assert.equal(req.city, emp.city);
+                    assert.equal(req.state, emp.state);
+                    assert.equal(req.zipcode, emp.zipcode);
+                    assert.equal(req.gender, emp.gender);
+                    assert.equal(req.dob, emp.dob);
+                    assert.equal(req.phone, emp.phone);
+                    assert.equal(req.salary, emp.salary);
+                }
                 done();
-            });
+            })
         });
 });

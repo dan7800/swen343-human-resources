@@ -3,22 +3,28 @@ var employeeModel = require('./employee');
 var db = require('../connection').employeeDb;
 module.exports = {
     createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, salary) {
-        var info = {
-            'firstName': first,
-            'lastName': last,
-            'position': job,
-            'department': department,
-            'streetAddress': streetAddress,
-            'city': city,
-            'state': state,
-            'zipcode': zipcode,
-            'gender': gender,
-            'dob': dob,
-            'phone': phone,
-            'salary': salary,
-            'lastModified': Date.now()
-        };
-        employeeModel.insert(info);
+        var employee = new employeeModel();
+
+        employee.firstName = first;
+        employee.lastName = last;
+        employee.position = job;
+        employee.department = department;
+        employee.street = streetAddress;
+        employee.city = city;
+        employee.state = state;
+        employee.zipcode = zipcode;
+        employee.gender = gender;
+        employee.dob = dob;
+        employee.phone = phone;
+        employee.salary = salary;
+        employee.lastModified = Date.now();
+
+        employee.save(function(err) {
+            if (err) {
+                console.log("Error saving employee in createEntry");
+                console.log(err);
+            }
+        });
     },
 
     updateEntry: function (first, last, map) {

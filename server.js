@@ -6,13 +6,16 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-mongoose.createConnection('mongodb://localhost:27017/employees');
+var employeeRouter = require("./employees/app");
+
+mongoose.connect('mongodb://localhost:27017/employees');
 
 var app = express();
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(express.static("public"));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 var port = 3000;
 
@@ -72,7 +75,7 @@ employeeRoute.get(function(req, res) {
 // End Employee Interface
 
 // Start Payroll Interface
-mongoose.createConnection('mongodb://localhost:27017/payroll');
+//mongoose.createConnection('mongodb://localhost:27017/payroll');
 var payrollRoute = router.route('/payroll');
 
 payrollRoute.get(function(req, res) {
@@ -81,10 +84,22 @@ payrollRoute.get(function(req, res) {
 });
 
 // End Payroll Interface
+app.use('/', employeeRouter);
 app.use('/api', router);
+
+var gracefulExit = function() {
+	mongoose.connection.close(function () {
+		console.log('Mongoose default connection with DB is disconnected through app termination');
+		process.exit(0);
+	});
+};
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
+
 var server = http.createServer(app);
 server.listen(port, function() {
-    console.log("Node server running on http://localhost:" + port);
+	console.log("Node server running on http://localhost:" + port);
 });
 
 module.exports = app;
