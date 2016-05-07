@@ -10,6 +10,7 @@ var Payroll = require('./payroll/payroll');
 
 // Routers
 var employeeRouter = require("./employees/app");
+var timesheetRouter = require("./timesheets/app");
 
 // Config
 var config = require('./_config');
@@ -100,6 +101,7 @@ payrollRoute.get(function(req, res) {
 
 // End Payroll Interface
 app.use('/', employeeRouter);
+app.use('/', timesheetRouter);
 app.use('/api', router);
 
 var gracefulExit = function() {

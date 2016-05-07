@@ -13,11 +13,11 @@ chai.use(chaiHttp);
 
 // Clear the employee db after each unit test
 afterEach(function(done){
-    employee.collection.drop();
+    employeeModel.collection.drop();
     done();
 });
 
-it('employee.createEntry() should create a new document in the mongodb database', function(done) {
+it('/createEmployee should create a new employee in the mongodb database', function(done) {
     var req = {};
     req.firstName = "Noah";
     req.lastName = "Frank";

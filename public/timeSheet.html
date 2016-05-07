@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create Timecard</title>
 </head>
 <body>
 <form method="POST" action="/createTimecard">
     <fieldset>
-        Employee ID: <input type="text" name="empID"><br>
+        Employee First Name: <input type="text" name="firstName"><br>
+        Employee Last Name: <input type="text" name="lastName"><br>
+        Employee DOB: <input type="text" name="DOB"><br>
         Sunday: <input type="number" name="sun"><br>
         Monday: <input type="number" name="mon"><br>
         Tuesday: <input type="number" name="tues"><br>
@@ -15,8 +17,6 @@
         Thursday: <input type="number" name="thurs"><br>
         Friday: <input type="number" name="fri"><br>
         Saturday: <input type="number" name="sat"><br>
-
-
     </fieldset>
     <input type="submit" value="Submit">
 </form>

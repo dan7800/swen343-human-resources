@@ -3,24 +3,12 @@
  * This is how a timesheet will look in the db
  */
 
+var mongoose = require('mongoose');
+
 var timesheetSchema = new mongoose.Schema({
     employeeId: String,
     total: Number,
-    dateCreated: Date,
+    dateCreated: Date
 });
-
-timesheetSchema.statics.getByEmployeeIdAndDateCreated = function (id, date, cb) {
-    return mongoose.model('Timesheet')
-        .where('employeeId', id)
-        .where('dateCreated', date)
-        .exec(cb);
-};
-
-timesheetSchema.statics.getLatestForEmployee = function (id, cb) {
-    return mongoose.model('Timesheet')
-        .where('employeeId', id)
-        .where('latest', true)
-        .exec(cb);
-};
 
 module.exports = mongoose.model("Timesheet", timesheetSchema);
