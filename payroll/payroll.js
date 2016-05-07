@@ -7,6 +7,11 @@ var Employee = require('../employees/employee');
 module.exports.payEmployee = function (id, cb) {
     Employee.getSalaryByEmployeeId(id, function (err, obj) {
         if (obj != null) { // If we found an employee
+            Payroll.findOneAndUpdate({'employeeId': id, 'latest': true}, {'latest': false}, function(err, doc){
+                if (err){
+                    console.log("Could not update latest payroll entry to {latest: false} due to ", err);
+                }
+            });
             var newPayroll = new Payroll();
             newPayroll.employeeId = id;
             newPayroll.paycheckAmount = obj['salary'];
@@ -16,7 +21,7 @@ module.exports.payEmployee = function (id, cb) {
 
             newPayroll.save(new function (error, data) {
                 if (error) {
-                    console.log("Could not save due to error", error);
+                    console.log("Could not save new payroll due to error", error);
                 }
             });
         }
