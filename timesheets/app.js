@@ -11,7 +11,7 @@ router.get('/createTimecard', function(request, response) {
 
 router.post('/createTimecard', function (request, response) {
     timesheet.calculateAndStorePay(request.body.mon, request.body.tues, request.body.wed, request.body.thurs, request.body.fri, request.body.sat, request.body.sun, request.body.firstName, request.body.lastName);
-    response.sendFile(path.join(__dirname, "..", "public", "listEmployees.html"));
+    response.redirect('/');
 });
 
 module.exports = router;
