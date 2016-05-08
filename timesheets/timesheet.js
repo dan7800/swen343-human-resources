@@ -9,9 +9,12 @@ module.exports = {
     calculateAndStorePay: function (mon, tues, wed, thurs, fri, sat, sun, firstName, lastName, cb) {
         for (var i = 0; i < 7; i++){ // 7 for the days of the week - the first 7 args
             if (Number(arguments[i]) < 0) {
-                arguments[i] = 0;
+                console.log("Negative number was entered");
+                return false;
             }
         }
+
+
         // Sum to determine total hours worked
         var totalHours = Number(mon)+Number(tues)+Number(wed)+Number(thurs)+Number(fri)+Number(sat)+Number(sun);
 
@@ -22,6 +25,17 @@ module.exports = {
             console.log('Total number of hours is too low');
             return false;
         }
+
+
+        //Determine if more than 24 Hours have been worked in a single day.
+        for(var x = 0; x < 7; x++){// 7 for the days of the week - the first 7 args
+            if(Number(arguments[x]) > 24){
+                console.log("More than 24 hours worked in a single day");
+                return false;
+            }
+        }
+
+
         // Get the employee id
         employeeModel.findOne({'firstName': firstName, 'lastName': lastName}, function (err, emp) {
             if (err) {

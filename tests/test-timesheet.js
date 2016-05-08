@@ -62,7 +62,7 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 40;
@@ -109,7 +109,7 @@ it('timesheet.calculateAndStorePay() should handle all negative hours', function
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 0;
@@ -122,22 +122,9 @@ it('timesheet.calculateAndStorePay() should handle all negative hours', function
     var sun = -7;
     setTimeout(function () {
         employee.save(function () {
-            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
-                function (err, entry) {
-                    // Wait for timesheet entry to be saved and returned
-                    // Now we can try to find the timesheet entry, recall it, and compare with the original values
-                    timesheet.getLatestForEmployee(employee._id, function (err, doc) {
-                        if (err) assert(false, "Error trying to find the inserted timesheet");
-                        if (doc == null) {
-                            assert(false, "Could not find the inserted timesheet");
-                        } else {
-                            assert.equal(doc.total, totalHours);
-                            assert.equal(doc.employeeId, employee._id);
-                        }
-                        done();
-                    });
-                }
-            );
+            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName);
+            chai.expect(rtn).to.eql(false);
+            done();
         });
     }, 1000);
 });
@@ -156,7 +143,7 @@ it('timesheet.calculateAndStorePay() should handle some negative hours', functio
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 24;
@@ -169,22 +156,9 @@ it('timesheet.calculateAndStorePay() should handle some negative hours', functio
     var sun = -7;
     setTimeout(function () {
         employee.save(function () {
-            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
-                function (err, entry) {
-                    // Wait for timesheet entry to be saved and returned
-                    // Now we can try to find the timesheet entry, recall it, and compare with the original values
-                    timesheet.getLatestForEmployee(employee._id, function (err, doc) {
-                        if (err) assert(false, "Error trying to find the inserted timesheet");
-                        if (doc == null) {
-                            assert(false, "Could not find the inserted timesheet");
-                        } else {
-                            assert.equal(doc.total, totalHours);
-                            assert.equal(doc.employeeId, employee._id);
-                        }
-                        done();
-                    });
-                }
-            );
+            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName);
+            chai.expect(rtn).to.eql(false);
+            done();
         });
     }, 1000);
 });
@@ -203,7 +177,7 @@ it('timesheet.calculateAndStorePay() should handle maximum num of hours in a wee
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 168;
@@ -250,7 +224,7 @@ it('timesheet.calculateAndStorePay() should handle more than maximum num of hour
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var mon = 25;
@@ -283,7 +257,7 @@ it('timesheet.calculateAndStorePay() should handle zero hours in a week', functi
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 0;
@@ -311,6 +285,39 @@ it('timesheet.calculateAndStorePay() should handle zero hours in a week', functi
                         done();
                     });
                 });
+        });
+    }, 1000);
+});
+
+it('timesheet.calculateAndStorePay() should handle more than twenty-four hours worked in a day', function (done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Peter";
+    employee.lastName = "Desrosiers";
+    employee.position = "Janitor";
+    employee.department = "Custodial Engineer";
+    employee.street = "272-6 Colony Manor Drive";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1994-12-19";
+    employee.phone = "123-867-5309";
+    employee.salary = 9900000;
+    employee.lastModified = new Date();
+
+    var totalHours = 60;
+    var mon = 36;
+    var tues = 4;
+    var wed = 4;
+    var thurs = 4;
+    var fri = 4;
+    var sat = 4;
+    var sun = 4;
+    setTimeout(function () {
+        employee.save(function () {
+            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName);
+            chai.expect(rtn).to.eql(false);
             done();
         });
     }, 1000);

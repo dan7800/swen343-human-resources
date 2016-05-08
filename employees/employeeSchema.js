@@ -18,7 +18,7 @@ var employeeSchema = new mongoose.Schema({
 	gender: String,
 	dob: Date,
 	phone: String,
-	salary: Number,
+	hourlyRate: Number,
     lastModified: Date
 });
 
