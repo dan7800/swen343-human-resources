@@ -41,7 +41,7 @@ it('/createEmployee should create a new employee in the mongodb database', funct
                 if (err) assert(false, "Error trying to find the inserted employee: " + err);
                 if (emp == null) {
                     assert(false, "Could not find the inserted employee");
-                } else {
+                }else {
                     assert.equal(req.firstName, emp.firstName);
                     assert.equal(req.lastName, emp.lastName);
                     assert.equal(req.position, emp.position);
