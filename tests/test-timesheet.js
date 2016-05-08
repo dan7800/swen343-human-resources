@@ -64,7 +64,6 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
     employee.phone = "123-456-7890";
     employee.salary = 100000;
     employee.lastModified = new Date();
-    employee.save();
 
     var totalHours = 40;
     var mon = 8;
