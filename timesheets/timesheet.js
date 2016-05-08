@@ -6,9 +6,10 @@ var timeSheetModel = require('./timesheetSchema');
 var employeeModel = require('../employees/employeeSchema');
 
 module.exports = {
-    calculateAndStorePay: function (mon, tues, wed, thurs, fri, sat, sun, firstName, lastName, dob) {
+    calculateAndStorePay: function (mon, tues, wed, thurs, fri, sat, sun, firstName, lastName, cb) {
         // Sum to determine total hours worked
         var totalHours = Number(mon)+Number(tues)+Number(wed)+Number(thurs)+Number(fri)+Number(sat)+Number(sun);
+
         if (totalHours < 0 || totalHours > 168) { // If the value exceeds the amount of hours in a week, display an error
             console.log("Total number of hours is too high");
             return false;
@@ -26,12 +27,14 @@ module.exports = {
                 var newTimeSheet = new timeSheetModel();
                 newTimeSheet.total = totalHours;
                 newTimeSheet.employeeId = emp._id;
-                newTimeSheet.dateCreated = Date.now();
+                newTimeSheet.dateCreated = new Date;
 
                 newTimeSheet.save(function (err) {
                     if (err) {
                         console.log("Error saving timesheet in calculateAndStorePay");
                         console.log(err);
+                    } else {
+                        cb();
                     }
                 });
             }
@@ -52,7 +55,7 @@ module.exports = {
      * @param cb - Callback function which has the parameters (err, listOfTimesheets),
      * where listOfTimesheets is the result of the query
      */
-    getHoursByEmployeeId: function (employeeID, cb) {
+    getByEmployeeId: function (employeeID, cb) {
         return timeSheetModel
             .find({'employeeId': employeeID})
             .exec(cb);

@@ -21,7 +21,7 @@ afterEach(function (done) {
     done();
 });
 
-it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb database', function (done) {
+it('Create a new timecard in the mongodb database', function (done) {
     var newTimeSheet = new timeSheetModel();
 
     var currentTime = new Date();
@@ -44,6 +44,54 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
                 }
                 done();
             });
+        });
+    }, 1000);
+});
+
+it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb database', function (done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Nick";
+    employee.lastName = "James";
+    employee.position = "SE";
+    employee.department = "Software";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.salary = 100000;
+    employee.lastModified = new Date();
+    employee.save();
+
+    var totalHours = 40;
+    var mon = 8;
+    var tues = 8;
+    var wed = 8;
+    var thurs = 8;
+    var fri = 8;
+    var sat = 0;
+    var sun = 0;
+    setTimeout(function () {
+        employee.save(function(){
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+                function (err, entry) {
+                    // Wait for timesheet entry to be saved and returned
+                    // Now we can try to find the timesheet entry, recall it, and compare with the original values
+                    timesheet.getLatestForEmployee(employee._id, function (err, doc) {
+                        if (err) assert(false, "Error trying to find the inserted timesheet");
+                        if (doc == null) {
+                            assert(false, "Could not find the inserted timesheet");
+                        } else {
+                            assert.equal(totalHours, doc.total);
+                            assert.equal(employeeID, doc.employeeId);
+                        }
+                        done();
+                    });
+                }
+            );
         });
     }, 1000);
 });
