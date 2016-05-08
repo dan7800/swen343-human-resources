@@ -5,7 +5,6 @@ var assert = require('assert');
 module.exports = {
     createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, hourlyRate) {
         var employee = new employeeModel();
-
         employee.firstName = first;
         employee.lastName = last;
         employee.position = job;

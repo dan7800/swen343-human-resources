@@ -54,10 +54,10 @@
         <div class="col-sm-4 col-sm-offset-4">
 
             <!-- LOOP OVER THE TODOS IN $scope.todos -->
-            <div class="checkbox" ng-repeat="employee in employees">
-                <label>
+            <div ng-repeat="employee in employees">
+                <button ng-click="fillEmployee(employee);">
                     {{employee.firstName}} {{employee.lastName}}
-                </label>
+                </button>
             </div>
 
         </div>
@@ -79,15 +79,45 @@
             Gender: <input type="text" name="gender" ng-model="formData.gender"><br>
             Phone: <input type="number" name="phone" required ng-model="formData.phone"><br>
             Date of Birth: <input type="date" name="DOB" ng-model="formData.dob"><br>
-            Salary: <input type="number" name="salary" required ng-model="formData.salary"><br>
+            Hourly Rate: <input type="number" name="hourlyRate" required ng-model="formData.hourlyRate"><br>
         </fieldset>
         <input type="submit" value="Submit">
     </form>
 </div>
-<div id="createTimesheet" class="hide">
 
+
+<div id="createTimesheet" class="hide">
+    <form method="POST" action="/createTimecard">
+        <fieldset>
+            Employee First Name: <input type="text" name="firstName" required><br>
+            Employee Last Name: <input type="text" name="lastName" required><br>
+            Employee DOB: <input type="text" name="DOB" required><br>
+            Sunday: <input type="number" name="sun"><br>
+            Monday: <input type="number" name="mon"><br>
+            Tuesday: <input type="number" name="tues"><br>
+            Wednesday: <input type="number" name="wed"><br>
+            Thursday: <input type="number" name="thurs"><br>
+            Friday: <input type="number" name="fri"><br>
+            Saturday: <input type="number" name="sat"><br>
+        </fieldset>
+        <input type="submit" value="Submit">
+    </form>
 </div>
 
+<div id="displayEmployee" class="hide">
+    <p id="empFirst">First Name: </p>
+    <p id="empLast">Last Name:</p>
+    <p id="empDOB">DOB: </p>
+    <p id="empPhone">Phone Number: </p>
+    <p id="empPosition">Position: </p>
+    <p id="empDepartment">Department: </p>
+    <p id="empAddress">Address: </p>
+    <p id="empCity">City: </p>
+    <p id="empState">State: </p>
+    <p id="empZip">Zip Code: </p>
+    <p id="empGender">Gender: </p>
+    <p id="empRate">Hourly Rate: </p>
+</div>
 <script>
 
 </script>

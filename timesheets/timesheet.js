@@ -56,7 +56,11 @@ module.exports = {
                         console.log("Error saving timesheet in calculateAndStorePay");
                         console.log(err);
                     } else {
-                        cb();
+                        if(cb)
+                        {
+                            cb();
+                        }
+
                     }
                 });
             }

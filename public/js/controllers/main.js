@@ -34,5 +34,43 @@ angular.module('employeeController', [])
 
         // DELETE ==================================================================
         // delete a todo after checking it
+
+        // Display Employee==============================================================
+
+        $scope.fillEmployee = function(employee){
+            document.getElementById("empFirst").innerHTML="First Name: "+employee.firstName;
+            document.getElementById("empLast").innerHTML="Last Name: "+employee.lastName;
+            document.getElementById("empDOB").innerHTML="Date of Birth: "+employee.dob;
+            document.getElementById("empPhone").innerHTML="Phone Number: "+employee.phone;
+            document.getElementById("empPosition").innerHTML="Position: "+employee.position;
+            document.getElementById("empDepartment").innerHTML="Department: "+employee.department;
+            document.getElementById("empAddress").innerHTML="Address: "+employee.address;
+            document.getElementById("empCity").innerHTML="City: "+employee.city;
+            document.getElementById("empState").innerHTML="State: "+employee.state;
+            document.getElementById("empZip").innerHTML="Zip Code: "+employee.zipCode;
+            document.getElementById("empGender").innerHTML="Gender: "+employee.gender;
+            document.getElementById("empRate").innerHTML="Hourly Rate: "+employee.hourlyRate;
+            var employees = document.getElementById("employees");
+            var createEmployee = document.getElementById("createEmployee");
+            var createTimesheet = document.getElementById("createTimesheet");
+            var displayEmployee = document.getElementById("displayEmployee");
+            //buttonTable.classList.add("hide");
+            if(!createEmployee.classList.contains("hide"))
+            {
+                createEmployee.classList.add("hide");
+            }
+            if(!createTimesheet.classList.contains("hide"))
+            {
+                createTimesheet.classList.add("hide");
+            }
+            if(!employees.classList.contains("hide"))
+            {
+                employees.classList.add("hide");
+            }
+
+            if(displayEmployee.classList.contains("hide")) {
+                displayEmployee.classList.remove("hide");
+            }
+        }
        
     });

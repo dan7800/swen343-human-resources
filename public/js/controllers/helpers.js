@@ -7,6 +7,7 @@ function showEmployees(){
     var employees = document.getElementById("employees");
     var createEmployee = document.getElementById("createEmployee");
     var createTimesheet = document.getElementById("createTimesheet");
+    var displayEmployee = document.getElementById("displayEmployee");
     //buttonTable.classList.add("hide");
     if(employees.classList.contains("hide")) {
         employees.classList.remove("hide");
@@ -19,6 +20,10 @@ function showEmployees(){
     {
         createTimesheet.classList.add("hide");
     }
+    if(!displayEmployee.classList.contains("hide"))
+    {
+        displayEmployee.classList.add("hide");
+    }
 }
 
 function showCreateEmployee(){
@@ -26,6 +31,7 @@ function showCreateEmployee(){
     var employees = document.getElementById("employees");
     var createEmployee = document.getElementById("createEmployee");
     var createTimesheet = document.getElementById("createTimesheet");
+    var displayEmployee = document.getElementById("displayEmployee");
     //buttonTable.classList.add("hide");
     if(createEmployee.classList.contains("hide")) {
         createEmployee.classList.remove("hide");
@@ -38,6 +44,10 @@ function showCreateEmployee(){
     {
         createTimesheet.classList.add("hide");
     }
+    if(!displayEmployee.classList.contains("hide"))
+    {
+        displayEmployee.classList.add("hide");
+    }
 }
 
 function showCreateTimesheet(){
@@ -45,6 +55,7 @@ function showCreateTimesheet(){
     var employees = document.getElementById("employees");
     var createEmployee = document.getElementById("createEmployee");
     var createTimesheet = document.getElementById("createTimesheet");
+    var displayEmployee = document.getElementById("displayEmployee");
     //buttonTable.classList.add("hide");
     if(createTimesheet.classList.contains("hide")) {
         createTimesheet.classList.remove("hide");
@@ -56,6 +67,10 @@ function showCreateTimesheet(){
     if(!employees.classList.contains("hide"))
     {
         employees.classList.add("hide");
+    }
+    if(!displayEmployee.classList.contains("hide"))
+    {
+        displayEmployee.classList.add("hide");
     }
 }
 
