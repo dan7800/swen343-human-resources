@@ -12,7 +12,9 @@ var timesheetSchema = new mongoose.Schema({
     },
     total:{
         type: Number,
-        require: [true, "Total number of hours is required to create a timecard"]
+        require: [true, "Total number of hours is required to create a timecard"],
+        min: [0, "Hours must be positive"],
+        max: [168, "Hours must be less than 168"]
     },
     dateCreated: Date
 });
