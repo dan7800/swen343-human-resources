@@ -92,12 +92,6 @@ employeeRoute.get(function(req, res) {
 
 // Start Payroll Interface
 //mongoose.createConnection('mongodb://localhost:27017/payroll');
-var payrollRoute = router.route('/payroll');
-
-payrollRoute.get(function(req, res) {
-	var body = Payroll.calculatePayroll();
-    res.send(body);
-});
 
 // End Payroll Interface
 app.use('/', employeeRouter);

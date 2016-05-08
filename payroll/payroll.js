@@ -4,11 +4,14 @@
 var Payroll = require('./payrollSchema');
 var Employee = require('../employees/employee');
 
+var http = require('http');
+var querystring = require('querystring');
+
 module.exports.payEmployee = function (id, cb) {
     Employee.getSalaryByEmployeeId(id, function (err, obj) {
         if (obj != null) { // If we found an employee
-            Payroll.findOneAndUpdate({'employeeId': id, 'latest': true}, {'latest': false}, function(err, doc){
-                if (err){
+            Payroll.findOneAndUpdate({'employeeId': id, 'latest': true}, {'latest': false}, function (err, doc) {
+                if (err) {
                     console.log("Could not update latest payroll entry to {latest: false} due to ", err);
                 }
             });
@@ -21,9 +24,6 @@ module.exports.payEmployee = function (id, cb) {
 
             newPayroll.save(new function (error, data) {
                 if (error) {
-                    assert.equal(error.errors['employeeId'].message, "Must provide employee ID to create payroll");
-                    assert.equal(error.errors['paycheckAmount'].message, "Must provide paycheck amount to create payroll");
-                    assert.equal(error.errors['datePaid'].message, "Must provide date paid to create payroll");
                     console.log("Could not save new payroll due to error", error);
                 }
             });
@@ -32,12 +32,35 @@ module.exports.payEmployee = function (id, cb) {
     });
 };
 
-/**
- * Calculates the amount of money that is needed to pay all of the employees
- * (Currently Stubbed)
- * @returns {number} - The amount of money needed to pay employees
- */
-module.exports.calculatePayroll = function () {
-    return {"Employee Payroll (Current Date)": Number.MAX_VALUE};
-};
+module.exports.postToAccounting = function(fName, lName, paycheck) {
+    // Build the post string from an object
+    var desc = 'Employee payroll for ' + fName + ' ' + lName;
+    var post_data = querystring.stringify({
+        apiKey: 'human_resources',
+        pay: paycheck,
+        description: desc
+    });
 
+    // An object of options to indicate where to post to
+    var post_options = {
+        host: 'localhost',
+        port: '6969',
+        path: '/payroll',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(post_data)
+        }
+    };
+
+    // Set up the request
+    var post_req = http.request(post_options, function(res) {
+        res.on('data', function (chunk) {
+            console.log('Response: ' + chunk);
+        });
+    });
+    
+    // post the data
+    post_req.write(post_data);
+    post_req.end();
+};

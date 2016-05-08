@@ -4,6 +4,9 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var mongoose = require('mongoose');
 var server = require('../server');
+var http = require('http');
+var sinon = require('sinon');
+var PassThrough = require('stream').PassThrough;
 
 var should = chai.should();
 var assert = chai.assert;
@@ -23,14 +26,23 @@ afterEach(function (done) {
 });
 
 
-it('There should be stubbed functionality in calculatePayroll', function (done) {
-    chai.request(server)
-        .get('/api/payroll')
-        .end(function (err, res) {
-            res.should.have.status(200);
-            chai.expect({'Employee Payroll (Current Date)': Number.MAX_VALUE}).to.eql(res.body);
-            done();
-        });
+it('Should post to accounting', function (done) {
+    this.request = sinon.stub(http, 'request');
+
+    var params = {
+        apiKey: 'human_resources',
+        pay: 100,
+        description: 'Employee payroll for Nick James'
+    };
+    var expected = JSON.stringify(params);
+
+    var request = new PassThrough();
+    var write = sinon.spy(request, 'write');
+
+    this.request.returns(request);
+    payroll.postToAccounting("Nick", "James", 100);
+    assert(write.withArgs(expected));
+    done();
 });
 
 it('Paying an employee should create a new entry in the payroll table.', function (done) {
