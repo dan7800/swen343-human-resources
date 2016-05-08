@@ -24,8 +24,8 @@ router.get('/createEmployee', function(request, response) {
 });
 
 router.post('/createEmployee', function(request, response) {
-    Employee.createEntry(request.body.firstName, request.body.lastName, request.body.position, request.body.department, request.body.streetAddress, request.body.city, request.body.state, request.body.zipCode, request.body.gender, request.body.DOB, request.body.phone, request.body.salary)
-    response.sendFile(path.join(__dirname, "..", "public", "listEmployees.html"));
+    Employee.createEntry(request.body.firstName, request.body.lastName, request.body.position, request.body.department, request.body.streetAddress, request.body.city, request.body.state, request.body.zipCode, request.body.gender, request.body.DOB, request.body.phone, request.body.hourlyRate)
+    response.redirect('/');
 });
 
 

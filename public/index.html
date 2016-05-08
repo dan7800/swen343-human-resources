@@ -1,9 +1,68 @@
-<!doctype html>
-<html class="no-js" lang="en" dir="ltr">
-	<header>
-	<title>Human Resource Component</title>
-	</header>
-	<body>
-		
-	</body>
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="employees">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Employee App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        #todo-list              { margin-bottom:30px; }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="js/core.js"></script>
+    <script src="js/controllers/main.js"></script> <!-- load up our controller -->
+    <script src="js/services/employees.js"></script> <!-- load our todo service -->
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="mainController">
+    <div class="container">
+
+        <!-- HEADER AND TODO COUNT -->
+        <div class="jumbotron text-center">
+            <h1>Employee List <span class="label label-info">{{employees.length}}</span></h1>
+        </div>
+
+        <!-- TODO LIST -->
+        <div id="employee-list" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+
+                <!-- LOOP OVER THE TODOS IN $scope.todos -->
+                <div class="checkbox" ng-repeat="employee in employees">
+                    <label>
+                     {{employee.firstName}} {{employee.lastName}}
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <form method="POST" action="/createEmployee">
+    <fieldset>
+        First Name: <input type="text" name="firstName" required ng-model="formData.firstName" value = "Brandon"><br>
+        Last Name: <input type="text" name="lastName" required ng-model="formData.lastName" value = "Brandon"><br>
+        Position: <input type="text" name="position" ng-model="formData.position"  value = "Brandon"><br>
+        Department: <input type="text" name="department" ng-model="formData.department" value = "Brandon"><br>
+        Street Address: <input type="text" name="streetAddress" required ng-model="formData.street" value = "Brandon"><br>
+        City: <input type="text" name="city" required ng-model="formData.city" value = "Brandon"><br>
+        State: <input type="text" name="state" required ng-model="formData.state"><br>
+        Zip Code: <input type="text" name="zipCode" required ng-model="formData.zipcode"><br>
+        Gender: <input type="text" name="gender" ng-model="formData.gender"><br>
+        Phone: <input type="text" name="phone" required ng-model="formData.phone"><br>
+        Date of Birth: <input type="text" name="DOB" ng-model="formData.dob">
+        Salary: <input type="text" name="salary" ng-model="formData.hourlyRate"><br>
+    </fieldset>
+    <input type="submit" value="Submit">
+</form>
+        
+</body>
 </html>

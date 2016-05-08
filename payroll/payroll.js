@@ -5,7 +5,7 @@ var Payroll = require('./payrollSchema');
 var Employee = require('../employees/employee');
 
 module.exports.payEmployee = function (id, cb) {
-    Employee.getSalaryByEmployeeId(id, function (err, obj) {
+    Employee.getHourlyRateByEmployeeId(id, function (err, obj) {
         if (obj != null) { // If we found an employee
             Payroll.findOneAndUpdate({'employeeId': id, 'latest': true}, {'latest': false}, function(err, doc){
                 if (err){
@@ -14,7 +14,7 @@ module.exports.payEmployee = function (id, cb) {
             });
             var newPayroll = new Payroll();
             newPayroll.employeeId = id;
-            newPayroll.paycheckAmount = obj['salary'];
+            newPayroll.paycheckAmount = obj['hourlyRate'];
             newPayroll.datePaid = new Date();
             newPayroll.lastModified = new Date();
             newPayroll.latest = true;
