@@ -118,7 +118,6 @@ it('/delete employee should remove employee from db', function(done) {
                     assert(true, 'Deleted');
                 }
                 employeeModel.findById(temp, function (err, entry) {
-                    console.log(entry);
                     chai.expect(entry).to.eql(null);
 
                     done();
@@ -128,6 +127,41 @@ it('/delete employee should remove employee from db', function(done) {
     }, 1000);
 });
 
+it('/updating employee info', function(done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Joe";
+    employee.lastName = "Schmoe";
+    employee.position = "SE";
+    employee.department = "Software";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.salary = 100000;
+    setTimeout(function () {
+        employee.save(function (err, employee) {
+            var tempPos = employee.position;
+            var tempFN = employee.firstName;
+            var tempLN = employee.lastName;
+            employeefunct.updateEntry(employee._id, 'Jose', 'Schmose', 'CS','Software', '607 Park Point', 'Rochester', 'NY', 14623, 'Male', '1995-08-18', '123-456-7890', 100000, function(err, entry){
+                if(entry.firstName != tempFN && entry.lastName != tempLN && employee.position != tempPos){
+                    assert(true, 'Employee info has been changed');
+                }
+                if(err){
+                    assert(false, 'Error in updating info');
+                }
+                else{
+                    assert(false, 'Info is unchanged');
+                }
+            });
+            done();
+        });
+    }, 1000);
+});
 
 
     /*
