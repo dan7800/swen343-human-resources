@@ -289,6 +289,55 @@ it('timesheet.calculateAndStorePay() should handle zero hours in a week', functi
     }, 1000);
 });
 
+
+it('timesheet.calculateAndStorePay() should handle zero hours in a week', function (done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Noah";
+    employee.lastName = "Frank";
+    employee.position = "Toilet Washer";
+    employee.department = "Custodial Engineer";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.hourlyRate = 1;
+    employee.lastModified = new Date();
+
+    var totalHours = 67;
+    var mon = 21;
+    var tues = 21;
+    var wed = 20;
+    var thurs = 0;
+    var fri = 0;
+    var sat = 0;
+    var sun = 5;
+    setTimeout(function () {
+        employee.save(function () {
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+                function (err, entry) {
+                    // Wait for timesheet entry to be saved and returned
+                    // Now we can try to find the timesheet entry, recall it, and compare with the original values
+                    timesheet.getLatestForEmployee(employee._id, function (err, doc) {
+                        if (err) assert(false, "Error trying to find the inserted timesheet");
+                        if (doc == null) {
+                            assert(false, "Could not find the inserted timesheet");
+                        } else {
+                            assert.equal(totalHours, doc.total);
+                            assert.equal(employee._id, doc.employeeId);
+                        }
+                        done();
+                    });
+                }
+            );
+        });
+    }, 1000);
+});
+
+
 it('timesheet.calculateAndStorePay() should handle more than twenty-four hours worked in a day', function (done) {
     var employee = new employeeModel();
 
