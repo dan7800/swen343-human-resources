@@ -58,7 +58,7 @@ employeesRoute.post(function(req, res){
 	employee.gender = req.body.gender;
 	employee.dob = req.body.dob;
 	employee.phone = req.body.phoneNumber;
-	employee.salary = req.body.salary;
+	employee.hourlyRate = req.body.hourlyRate;
 	employee.lastModified = req.body.lastModified;
 
 	employee.save(function(err) {

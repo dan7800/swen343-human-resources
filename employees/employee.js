@@ -3,7 +3,7 @@ var employeeModel = require('./employeeSchema');
 var assert = require('assert');
 
 module.exports = {
-    createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, salary) {
+    createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, hourlyRate) {
         var employee = new employeeModel();
 
         employee.firstName = first;
@@ -17,7 +17,7 @@ module.exports = {
         employee.gender = gender;
         employee.dob = dob;
         employee.phone = phone;
-        employee.salary = salary;
+        employee.hourlyRate = hourlyRate;
         employee.lastModified = Date.now();
 
         employee.save(function(err) {
@@ -50,10 +50,10 @@ module.exports = {
         employeeModel.remove(selector)
     },
 
-    getSalaryByEmployeeId: function (id, cb) {
+    getHourlyRateByEmployeeId: function (id, cb) {
         return employeeModel
             .findById(id)
-            .select('salary')
+            .select('hourlyRate')
             .exec(cb);
     }
 };

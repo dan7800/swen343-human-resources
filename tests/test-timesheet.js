@@ -62,7 +62,7 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 40;
@@ -109,7 +109,7 @@ it('timesheet.calculateAndStorePay() should handle all negative hours', function
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 0;
@@ -143,7 +143,7 @@ it('timesheet.calculateAndStorePay() should handle some negative hours', functio
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 24;
@@ -177,7 +177,7 @@ it('timesheet.calculateAndStorePay() should handle maximum num of hours in a wee
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 168;
@@ -224,7 +224,7 @@ it('timesheet.calculateAndStorePay() should handle more than maximum num of hour
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var mon = 25;
@@ -257,7 +257,7 @@ it('timesheet.calculateAndStorePay() should handle zero hours in a week', functi
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     var totalHours = 0;

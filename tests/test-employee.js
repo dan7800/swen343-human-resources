@@ -30,7 +30,7 @@ it('/createEmployee should create a new employee in the mongodb database', funct
     req.gender = "Male";
     req.DOB = "1995-05-18";
     req.phone = "124-321-5234";
-    req.salary = 100000;
+    req.hourlyRate = 100000;
     
     setTimeout(function () {
     chai.request(server)
@@ -54,7 +54,7 @@ it('/createEmployee should create a new employee in the mongodb database', funct
                     assert.equal(req.gender, emp.gender);
                     assert.equal((new Date(req.DOB)).toString(), emp.dob.toString());
                     assert.equal(req.phone, emp.phone);
-                    assert.equal(req.salary, emp.salary);
+                    assert.equal(req.hourlyRate, emp.hourlyRate);
                 }
                 done();
             })
@@ -75,7 +75,7 @@ var employee = new employeeModel();
     employee.gender = "Male";
     employee.dob = "1995-08-18";
     employee.phone = "123-456-7890";
-    employee.salary = 100000;
+    employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
     setTimeout(function () {
