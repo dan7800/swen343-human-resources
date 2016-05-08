@@ -31,7 +31,8 @@ it('/createEmployee should create a new employee in the mongodb database', funct
     req.DOB = "1995-05-18";
     req.phone = "124-321-5234";
     req.salary = 100000;
-
+    
+    setTimeout(function () {
     chai.request(server)
         .post('/createEmployee')
         .send(req)
@@ -57,7 +58,7 @@ it('/createEmployee should create a new employee in the mongodb database', funct
                 }
                 done();
             })
-        });
+        });},1000);
 });
 
 it('/createEmployee should not create a new employee in the mongodb database', function(done) {
@@ -77,12 +78,13 @@ var employee = new employeeModel();
     employee.salary = 100000;
     employee.lastModified = new Date();
 
+    setTimeout(function () {
     employee.save(function(err, employee) { // Wait for employee entry to be saved and returned
         if (err){
             assert(true, "Employee was not created:" + err);
         }
         done();
-    });
+    });},1000);
         
 });
 

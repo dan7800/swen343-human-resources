@@ -5,9 +5,18 @@
 var mongoose = require('mongoose');
 
 var payrollSchema = new mongoose.Schema({
-    employeeId: String,
-    paycheckAmount: Number,
-    datePaid: Date,
+    employeeId:{
+        type: String,
+        required: [true, "Must provide employee ID to create payroll"]
+    },
+    paycheckAmount:{
+        type: Number,
+        required: [true, "Must provide paycheck amount to create payroll"]
+    },
+    datePaid:{
+        type: Date,
+        required: [true, "Must provide date paid to create payroll"]
+    },
     lastModified: Date,
     latest: Boolean
 });

@@ -37,6 +37,7 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
             console.log(err);
         }
     });
+        setTimeout(function () {
 
     newTimeSheet.save(function(err, timesheet) { // Wait for timesheet entry to be saved and returned
         // Now we can try to find the timesheet entry, recall it, and compare with the original values
@@ -51,5 +52,5 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
             }
             done();
         });
-    });
+    });},1000);
 });

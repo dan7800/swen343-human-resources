@@ -6,8 +6,14 @@
 var mongoose = require('mongoose');
 
 var timesheetSchema = new mongoose.Schema({
-    employeeId: String,
-    total: Number,
+    employeeId:{
+        type: String,
+        require : [true, "Employee ID is required to create a timecard"]
+    },
+    total:{
+        type: Number,
+        require: [true, "Total number of hours is required to create a timecard"]
+    },
     dateCreated: Date
 });
 

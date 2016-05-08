@@ -21,6 +21,9 @@ module.exports.payEmployee = function (id, cb) {
 
             newPayroll.save(new function (error, data) {
                 if (error) {
+                    assert.equal(error.errors['employeeId'].message, "Must provide employee ID to create payroll");
+                    assert.equal(error.errors['paycheckAmount'].message, "Must provide paycheck amount to create payroll");
+                    assert.equal(error.errors['datePaid'].message, "Must provide date paid to create payroll");
                     console.log("Could not save new payroll due to error", error);
                 }
             });
