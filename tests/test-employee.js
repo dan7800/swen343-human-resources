@@ -7,6 +7,8 @@ var server = require('../server');
 var should = chai.should();
 var assert = chai.assert;
 
+
+var employeefunct = require('../employees/employee');
 var employeeModel = require('../employees/employeeSchema');
 
 chai.use(chaiHttp);
@@ -88,4 +90,64 @@ var employee = new employeeModel();
         
 });
 
+
+it('/delete employee should remove employee from db', function(done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Joe";
+    employee.lastName = "Schmoe";
+    employee.position = "SE";
+    employee.department = "Software";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.salary = 100000;
+    employee.lastModified = new Date();
+    setTimeout(function () {
+        employee.save(function (err, employee) {
+            var temp = employee._id;
+            employeefunct.deleteEntry(temp, function (err, entry) {
+                if(err){
+                    assert(false, 'Error in deleting');
+                }
+                else{
+                    assert(true, 'Deleted');
+                }
+                employeeModel.findById(temp, function (err, entry) {
+                    console.log(entry);
+                    chai.expect(entry).to.eql(null);
+
+                    done();
+                });
+            });
+        });
+    }, 1000);
+});
+
+
+
+    /*
+    setTimeout(function () {
+            var temp = employee._id
+            employeefunct.deleteEntry(employee._id, function(done){
+                if (employeeModel.findById(temp) == null){
+                    assert(true, "Employee Joe was removed")
+                }
+                else{
+                    assert(false, "Employee Joe was not removed")
+                }
+
+
+            done();
+        });},1000);
+
+});
+
+
+
+*/
 

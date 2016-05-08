@@ -42,12 +42,11 @@ module.exports = {
         );
     },
 
-    deleteEntry: function (first, last) {
-        var selector = {
-            'firstName': first,
-            'lastName': last
-        };
-        employeeModel.remove(selector)
+    deleteEntry: function (id, cb) {
+        employeeModel.remove({"_id":id}, function (err, entry) {
+            cb(err, entry);
+        });
+        
     },
 
     getSalaryByEmployeeId: function (id, cb) {
