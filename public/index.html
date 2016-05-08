@@ -34,6 +34,12 @@
     <script src="js/services/employees.js"></script> <!-- load our todo service -->
 
 </head>
+<header>
+    
+    <div class="jumbotron text-center">
+        <h1>Human Resources App</h1>
+    </div>
+</header>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
 <body ng-controller="mainController">
 <table id="buttonTable">
@@ -45,10 +51,7 @@
 </table>
 <div id="employees" class="">
     <!-- HEADER AND TODO COUNT -->
-    <div class="jumbotron text-center">
-        <h1>Employee List <span class="label label-info">{{employees.length}}</span></h1>
-    </div>
-
+        <h1 class = "text-center">Employees(<span class="label label-info">{{employees.length}}</span>)</h1>
     <!-- TODO LIST -->
     <div id="employee-list" class="row">
         <div class="col-sm-4 col-sm-offset-4">
@@ -105,8 +108,7 @@
 </div>
 
 <div id="displayEmployee" class="hide">
-    <p id="empFirst">First Name: </p>
-    <p id="empLast">Last Name:</p>
+    <h3 id="empName"></h3>
     <p id="empDOB">DOB: </p>
     <p id="empPhone">Phone Number: </p>
     <p id="empPosition">Position: </p>

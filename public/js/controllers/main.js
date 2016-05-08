@@ -38,8 +38,7 @@ angular.module('employeeController', [])
         // Display Employee==============================================================
 
         $scope.fillEmployee = function(employee){
-            document.getElementById("empFirst").innerHTML="First Name: "+employee.firstName;
-            document.getElementById("empLast").innerHTML="Last Name: "+employee.lastName;
+            document.getElementById("empName").innerHTML= employee.firstName + " " + employee.lastName;
             document.getElementById("empDOB").innerHTML="Date of Birth: "+employee.dob;
             document.getElementById("empPhone").innerHTML="Phone Number: "+employee.phone;
             document.getElementById("empPosition").innerHTML="Position: "+employee.position;
