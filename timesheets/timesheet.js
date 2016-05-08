@@ -7,11 +7,19 @@ var employeeModel = require('../employees/employeeSchema');
 
 module.exports = {
     calculateAndStorePay: function (mon, tues, wed, thurs, fri, sat, sun, firstName, lastName, cb) {
+        for (var i = 0; i < 7; i++){ // 7 for the days of the week - the first 7 args
+            if (Number(arguments[i]) < 0) {
+                arguments[i] = 0;
+            }
+        }
         // Sum to determine total hours worked
         var totalHours = Number(mon)+Number(tues)+Number(wed)+Number(thurs)+Number(fri)+Number(sat)+Number(sun);
 
-        if (totalHours < 0 || totalHours > 168) { // If the value exceeds the amount of hours in a week, display an error
+        if (totalHours > 168) { // If the value exceeds the amount of hours in a week, display an error
             console.log("Total number of hours is too high");
+            return false;
+        } else if (totalHours < 0){
+            console.log('Total number of hours is too low');
             return false;
         }
         // Get the employee id
