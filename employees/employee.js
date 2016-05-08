@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var employeeModel = require('./employeeSchema');
 
+
 module.exports = {
     createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, salary) {
         var employee = new employeeModel();
