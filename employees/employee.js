@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var employeeModel = require('./employeeSchema');
+var assert = require('assert');
 
 module.exports = {
     createEntry: function (first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, salary) {
@@ -21,6 +22,7 @@ module.exports = {
 
         employee.save(function(err) {
             if (err) {
+                assert.equal(err.errors['firstName'].message, "Must provide employee's first name");
                 console.log("Error saving employee in createEntry");
                 console.log(err);
             }
