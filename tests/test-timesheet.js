@@ -94,3 +94,177 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
         });
     }, 1000);
 });
+
+it('timesheet.calculateAndStorePay() should handle all negative hours', function (done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Nick";
+    employee.lastName = "James";
+    employee.position = "SE";
+    employee.department = "Software";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.salary = 100000;
+    employee.lastModified = new Date();
+
+    var totalHours = 0;
+    var mon = -1;
+    var tues = -2;
+    var wed = -3;
+    var thurs = -4;
+    var fri = -5;
+    var sat = -6;
+    var sun = -7;
+    setTimeout(function () {
+        employee.save(function(){
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+                function (err, entry) {
+                    // Wait for timesheet entry to be saved and returned
+                    // Now we can try to find the timesheet entry, recall it, and compare with the original values
+                    timesheet.getLatestForEmployee(employee._id, function (err, doc) {
+                        if (err) assert(false, "Error trying to find the inserted timesheet");
+                        if (doc == null) {
+                            assert(false, "Could not find the inserted timesheet");
+                        } else {
+                            assert.equal(doc.total, totalHours);
+                            assert.equal(doc.employeeId, employee._id);
+                        }
+                        done();
+                    });
+                }
+            );
+        });
+    }, 1000);
+});
+
+it('timesheet.calculateAndStorePay() should handle some negative hours', function (done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Nick";
+    employee.lastName = "James";
+    employee.position = "SE";
+    employee.department = "Software";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.salary = 100000;
+    employee.lastModified = new Date();
+
+    var totalHours = 24;
+    var mon = -1;
+    var tues = 8;
+    var wed = -3;
+    var thurs = -4;
+    var fri = 8;
+    var sat = 8;
+    var sun = -7;
+    setTimeout(function () {
+        employee.save(function(){
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+                function (err, entry) {
+                    // Wait for timesheet entry to be saved and returned
+                    // Now we can try to find the timesheet entry, recall it, and compare with the original values
+                    timesheet.getLatestForEmployee(employee._id, function (err, doc) {
+                        if (err) assert(false, "Error trying to find the inserted timesheet");
+                        if (doc == null) {
+                            assert(false, "Could not find the inserted timesheet");
+                        } else {
+                            assert.equal(doc.total, totalHours);
+                            assert.equal(doc.employeeId, employee._id);
+                        }
+                        done();
+                    });
+                }
+            );
+        });
+    }, 1000);
+});
+
+it('timesheet.calculateAndStorePay() should handle maximum num of hours in a week', function (done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Nick";
+    employee.lastName = "James";
+    employee.position = "SE";
+    employee.department = "Software";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.salary = 100000;
+    employee.lastModified = new Date();
+
+    var totalHours = 168;
+    var mon = 24;
+    var tues = 24;
+    var wed = 24;
+    var thurs = 24;
+    var fri = 24;
+    var sat = 24;
+    var sun = 24;
+    setTimeout(function () {
+        employee.save(function(){
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+                function (err, entry) {
+                    // Wait for timesheet entry to be saved and returned
+                    // Now we can try to find the timesheet entry, recall it, and compare with the original values
+                    timesheet.getLatestForEmployee(employee._id, function (err, doc) {
+                        if (err) assert(false, "Error trying to find the inserted timesheet");
+                        if (doc == null) {
+                            assert(false, "Could not find the inserted timesheet");
+                        } else {
+                            assert.equal(doc.total, totalHours);
+                            assert.equal(doc.employeeId, employee._id);
+                        }
+                        done();
+                    });
+                }
+            );
+        });
+    }, 1000);
+});
+
+it('timesheet.calculateAndStorePay() should handle maximum num of hours in a week', function (done) {
+    var employee = new employeeModel();
+
+    employee.firstName = "Nick";
+    employee.lastName = "James";
+    employee.position = "SE";
+    employee.department = "Software";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.salary = 100000;
+    employee.lastModified = new Date();
+
+    var mon = 25;
+    var tues = 24;
+    var wed = 24;
+    var thurs = 24;
+    var fri = 24;
+    var sat = 24;
+    var sun = 24;
+    setTimeout(function () {
+        employee.save(function(){
+            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName);
+            chai.expect(rtn).to.eql(false);
+            done();
+        });
+    }, 1000);
+});
