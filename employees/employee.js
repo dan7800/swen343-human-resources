@@ -29,17 +29,22 @@ module.exports = {
         });
     },
 
-    updateEntry: function (first, last, map) {
-        var selector = {
-            'firstName': first,
-            'lastName': last
-        };
-        employeeModel.update(selector,
-            {
-                $set: map,
-                $currentDate: {'lastModified': true}
-            }
-        );
+    updateEntry: function (id, first, last, job, department, streetAddress, city, state, zipcode, gender, dob, phone, hourlyRate, cb) {
+        var emp = employeeModel.findById(id);
+        emp.firstName = first;
+        emp.lastName = last;
+        emp.position = job;
+        emp.department = department;
+        emp.street = streetAddress;
+        emp.city = city;
+        emp.state = state;
+        emp.zipcode = zipcode;
+        emp.gender = gender;
+        emp.dob = dob;
+        emp.phone = phone;
+        emp.hourlyRate = hourlyRate;
+        emp.lastModified = Date.now();
+        emp.update();
     },
 
     deleteEntry: function (id, cb) {
