@@ -86,7 +86,7 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
                             assert(false, "Could not find the inserted timesheet");
                         } else {
                             assert.equal(totalHours, doc.total);
-                            assert.equal(employeeID, doc.employeeId);
+                            assert.equal(employee._id, doc.employeeId);
                         }
                         done();
                     });
