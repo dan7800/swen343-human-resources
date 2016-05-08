@@ -49,7 +49,7 @@ it('Paying an employee should create a new entry in the payroll table.', functio
     employee.phone = "123-456-7890";
     employee.salary = 100000;
     employee.lastModified = new Date();
-
+            setTimeout(function () {
     employee.save(function(err, employee) { // Wait for employee entry to be saved and returned
         payroll.payEmployee(employee._id, function() { // Wait for payroll to be inserted into the database
             // Now we can try to find the payroll entry, recall it, and compare with the original employee salary
@@ -63,16 +63,18 @@ it('Paying an employee should create a new entry in the payroll table.', functio
                 done();
             });
         });
-    });
+    });},1000);
 });
 
 it('There are no entries in the db, so it should return null', function(done) {
+            setTimeout(function () {
     payroll.payEmployee(null, function() {
         employeeClass.getSalaryByEmployeeId(null, function (err, obj){
             chai.expect(null).to.eql(obj);
             done();
         });
     });
+            },1000);
 });
 
 it('Paying an employee should set the last latest field to false, and the newest to true', function(done) {
@@ -91,7 +93,7 @@ it('Paying an employee should set the last latest field to false, and the newest
     employee.phone = "123-456-7890";
     employee.salary = 100000;
     employee.lastModified = new Date();
-
+        setTimeout(function () {
     employee.save(function(err, employee) { // Wait for employee entry to be saved and returned
         payroll.payEmployee(employee._id, function() { // Wait for 1st payroll to be inserted into the database
             payroll.payEmployee(employee._id, function() { // Wait for 2nd payroll to be inserted into the database
@@ -114,5 +116,5 @@ it('Paying an employee should set the last latest field to false, and the newest
                 });
             });
         });
-    });
+    });},1000);
 });
