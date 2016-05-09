@@ -89,7 +89,7 @@
 </div>
 
 <div id="displayEmployee" class="hide container">
-    <h3 id="empName"></h3>
+    <h3 id="empName">Name: </h3>
     <p id="empDOB">DOB: </p>
     <p id="empPhone">Phone Number: </p>
     <p id="empPosition">Position: </p>
@@ -100,7 +100,13 @@
     <p id="empZip">Zip Code: </p>
     <p id="empGender">Gender: </p>
     <p id="empRate">Hourly Rate: </p>
-    <p id="empCreateTimesheet"> </p>
+    <button onclick="javascript:showCreateTimesheet()">Create New Timesheet</button>
+    <button onclick="javascript:deleteEmployee()">Delete Employee</button>
+    <form id="deleteEmployee" style="height:0px;width:0px;" method="POST" action="/deleteEmployee">
+        <fieldset style="border:none;">
+            <input id="deletedEmployee" type="hidden" name="currentEmpID">
+        </fieldset>
+    </form>
 </div>
 <script>
 
