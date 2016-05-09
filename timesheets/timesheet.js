@@ -99,5 +99,13 @@ module.exports = {
             .findOne({'employeeId': id})
             .sort({dateCreated: -1})
             .exec(cb);
+    },
+    
+    getHoursByEmployeeId: function (employeeId, cb) {
+        return timeSheetModel
+            .findOne({'employeeId' : employeeId})
+            .sort({dateCreated: -1})
+            .select('total')
+            .exec(cb)
     }
 };
