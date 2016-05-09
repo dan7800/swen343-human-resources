@@ -2,7 +2,49 @@
     display:none;
 }
 
-#buttonTable{
+#navbar{
     width:100%;
-    text-align:center;
+    background:black;
+    height:50px;
 }
+
+.navButton{
+    height:40px;
+}
+body{
+    margin:0;
+    background-color:#e9eaed;
+}
+#title{
+    font-size:45;
+    color:white;
+    float:left;
+}
+#navbuttons{
+    padding:5px 5px 5px 0;
+    float:right;
+}
+
+.submit{
+    height:30px;
+    margin-top:10px;
+}
+.formTitle{
+    font-size:30px;
+    width:350px;
+    padding-bottom:15px;
+    padding-top:15px;
+}
+.container{
+    padding-left:30px;
+}
+
+fieldset{
+    display:inline-block;
+}
+label{
+    width:100px;
+    display:inline-block;
+    text-align:right;
+}
+

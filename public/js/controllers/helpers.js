@@ -3,7 +3,6 @@
  */
 
 function showEmployees(){
-    var buttonTable=document.getElementById("buttonTable");
     var employees = document.getElementById("employees");
     var createEmployee = document.getElementById("createEmployee");
     var createTimesheet = document.getElementById("createTimesheet");
@@ -27,7 +26,6 @@ function showEmployees(){
 }
 
 function showCreateEmployee(){
-    var buttonTable=document.getElementById("buttonTable");
     var employees = document.getElementById("employees");
     var createEmployee = document.getElementById("createEmployee");
     var createTimesheet = document.getElementById("createTimesheet");
@@ -51,7 +49,6 @@ function showCreateEmployee(){
 }
 
 function showCreateTimesheet(){
-    var buttonTable=document.getElementById("buttonTable");
     var employees = document.getElementById("employees");
     var createEmployee = document.getElementById("createEmployee");
     var createTimesheet = document.getElementById("createTimesheet");
@@ -71,27 +68,5 @@ function showCreateTimesheet(){
     if(!displayEmployee.classList.contains("hide"))
     {
         displayEmployee.classList.add("hide");
-    }
-}
-
-function showButtonTable(){
-    var buttonTable=document.getElementById("buttonTable");
-    var employees = document.getElementById("employees");
-    var createEmployee = document.getElementById("createEmployee");
-    var createTimesheet = document.getElementById("createTimesheet");
-    if(buttonTable.classList.contains("hide")) {
-        buttonTable.classList.remove("hide");
-    }
-    if(!createEmployee.classList.contains("hide"))
-    {
-        createEmployee.classList.add("hide");
-    }
-    if(!createTimesheet.classList.contains("hide"))
-    {
-        createTimesheet.classList.add("hide");
-    }
-    if(!employees.classList.contains("hide"))
-    {
-        employees.classList.add("hide");
     }
 }
