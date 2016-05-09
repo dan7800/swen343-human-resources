@@ -39,7 +39,9 @@ angular.module('employeeController', [])
 
         $scope.fillEmployee = function(employee){
             document.getElementById("empName").innerHTML= employee.firstName + " " + employee.lastName;
-            document.getElementById("empDOB").innerHTML="Date of Birth: "+employee.dob;
+            var dob=employee.dob;
+            dob=dob.substring(0,10);
+            document.getElementById("empDOB").innerHTML="Date of Birth: "+dob;
             document.getElementById("empPhone").innerHTML="Phone Number: "+employee.phone;
             document.getElementById("empPosition").innerHTML="Position: "+employee.position;
             document.getElementById("empDepartment").innerHTML="Department: "+employee.department;
@@ -49,8 +51,8 @@ angular.module('employeeController', [])
             document.getElementById("empZip").innerHTML="Zip Code: "+employee.zipcode;
             document.getElementById("empGender").innerHTML="Gender: "+employee.gender;
             document.getElementById("empRate").innerHTML="Hourly Rate: "+employee.hourlyRate;
-            document.getElementById("empCreateTimesheet").innerHTML="<button onclick=\"javascript:showCreateTimesheet()\">Create New Timesheet</button>";
             document.getElementById("currentEmpID").value=employee._id;
+            document.getElementById("deletedEmployee").value=employee._id;
             var employees = document.getElementById("employees");
             var createEmployee = document.getElementById("createEmployee");
             var createTimesheet = document.getElementById("createTimesheet");

@@ -28,6 +28,11 @@ router.post('/createEmployee', function(request, response) {
     response.redirect('/');
 });
 
+router.post('/deleteEmployee', function(request, response) {
+    Employee.deleteEntry(request.body.currentEmpID);
+    response.redirect('/');
+});
+
 
 
 module.exports = router;

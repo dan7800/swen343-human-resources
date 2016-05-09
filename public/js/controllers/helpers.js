@@ -70,3 +70,13 @@ function showCreateTimesheet(){
         displayEmployee.classList.add("hide");
     }
 }
+
+function deleteEmployee()
+{
+    var employee=document.getElementById("empName").innerHTML;
+    var id=document.getElementById("currentEmpID").value;
+    if(confirm('You are about to delete "'+ employee+'"!  Would you like to continue?'))
+    {
+        document.forms["deleteEmployee"].submit();
+    }
+}

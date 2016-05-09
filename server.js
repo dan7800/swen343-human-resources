@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 
 // Models
 var Employee = require('./employees/employeeSchema');
-var Payroll = require('./payroll/payroll');
+var Timesheet = require('./timesheets/timesheetSchema');
 
 // Routers
 var employeeRouter = require("./employees/app");
@@ -26,47 +26,17 @@ mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
 	}
 });
 
-
-
 app.use(express.static("public"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var port = 3000;
+var port = 8002;
 
 var router = express.Router();
 
-router.get('/', function(req, res) {
-  res.json({ message: 'HR API Module' });
-});
-// Start Employee Interface
+// Start Employee Interface which passes data to frontend
 var employeesRoute = router.route('/employees');
-
-employeesRoute.post(function(req, res){
-
-	var employee = new Employee();
-
-	employee.firstName = req.body.firstName;
-	employee.lastName = req.body.lastName;
-	employee.position = req.body.position;
-	employee.department = req.body.department;
-	employee.street = req.body.street;
-	employee.city = req.body.city;
-	employee.state = req.body.state;
-	employee.zipcode = req.body.zipcode;
-	employee.gender = req.body.gender;
-	employee.dob = req.body.dob;
-	employee.phone = req.body.phoneNumber;
-	employee.hourlyRate = req.body.hourlyRate;
-	employee.lastModified = req.body.lastModified;
-
-	employee.save(function(err) {
-    	if (err)
-    		res.send(err);
-    	res.json({ message: 'Employee added!', data: employee });
-    });
-});
 
 employeesRoute.get(function(req, res) {
   Employee.find(function(err, employees) {
@@ -76,7 +46,6 @@ employeesRoute.get(function(req, res) {
     res.json(employees);
   });
 });
-
 
 var employeeRoute = router.route('/employees/:employee_id');
 
@@ -90,10 +59,19 @@ employeeRoute.get(function(req, res) {
 });
 // End Employee Interface
 
-// Start Payroll Interface
-//mongoose.createConnection('mongodb://localhost:27017/payroll');
+// Start Timesheet Interface
+var timesheetRoute = router.route('/timesheets');
 
-// End Payroll Interface
+timesheetRoute.get(function(req, res) {
+	Timesheet.find(function(err, timesheets) {
+		if (err) {
+			res.send(err);
+		}
+		res.json(timesheets);
+	});
+});
+
+// End Timesheet Interface
 app.use('/', employeeRouter);
 app.use('/', timesheetRouter);
 app.use('/api', router);
