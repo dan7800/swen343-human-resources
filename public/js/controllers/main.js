@@ -43,10 +43,10 @@ angular.module('employeeController', [])
             document.getElementById("empPhone").innerHTML="Phone Number: "+employee.phone;
             document.getElementById("empPosition").innerHTML="Position: "+employee.position;
             document.getElementById("empDepartment").innerHTML="Department: "+employee.department;
-            document.getElementById("empAddress").innerHTML="Address: "+employee.address;
+            document.getElementById("empAddress").innerHTML="Address: "+employee.street;
             document.getElementById("empCity").innerHTML="City: "+employee.city;
             document.getElementById("empState").innerHTML="State: "+employee.state;
-            document.getElementById("empZip").innerHTML="Zip Code: "+employee.zipCode;
+            document.getElementById("empZip").innerHTML="Zip Code: "+employee.zipcode;
             document.getElementById("empGender").innerHTML="Gender: "+employee.gender;
             document.getElementById("empRate").innerHTML="Hourly Rate: "+employee.hourlyRate;
             document.getElementById("empCreateTimesheet").innerHTML="<button onclick=\"javascript:showCreateTimesheet()\">Create New Timesheet</button>";
