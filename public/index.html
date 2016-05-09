@@ -46,7 +46,6 @@
     <tr>
         <td><button onclick="javascript:showEmployees()">Employee List</button></td>
         <td><button onclick="javascript:showCreateEmployee()">Create Employee</button></td>
-        <td><button onclick="javascript:showCreateTimesheet()">Create Timesheet</button></td>
     </tr>
 </table>
 <div id="employees" class="">
@@ -92,9 +91,7 @@
 <div id="createTimesheet" class="hide">
     <form method="POST" action="/createTimecard">
         <fieldset>
-            Employee First Name: <input type="text" name="firstName" required><br>
-            Employee Last Name: <input type="text" name="lastName" required><br>
-            Employee DOB: <input type="text" name="DOB" required><br>
+            <input type="hidden" name="currentEmpID" id="currentEmpID" value="">
             Sunday: <input type="number" name="sun"><br>
             Monday: <input type="number" name="mon"><br>
             Tuesday: <input type="number" name="tues"><br>
@@ -119,6 +116,7 @@
     <p id="empZip">Zip Code: </p>
     <p id="empGender">Gender: </p>
     <p id="empRate">Hourly Rate: </p>
+    <p id="empCreateTimesheet"> </p>
 </div>
 <script>
 

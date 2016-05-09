@@ -6,7 +6,7 @@ var timeSheetModel = require('./timesheetSchema');
 var employeeModel = require('../employees/employeeSchema');
 
 module.exports = {
-    calculateAndStorePay: function (mon, tues, wed, thurs, fri, sat, sun, firstName, lastName, cb) {
+    calculateAndStorePay: function (mon, tues, wed, thurs, fri, sat, sun, empID, cb) {
         for (var i = 0; i < 7; i++){ // 7 for the days of the week - the first 7 args
             if (Number(arguments[i]) < 0) {
                 console.log("Negative number was entered");
@@ -37,7 +37,7 @@ module.exports = {
 
 
         // Get the employee id
-        employeeModel.findOne({'firstName': firstName, 'lastName': lastName}, function (err, emp) {
+        employeeModel.findById(empID, function (err, emp) {
             if (err) {
                 console.log("Error trying to find the given employee: ", err);
                 return false;

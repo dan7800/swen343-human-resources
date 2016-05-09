@@ -74,8 +74,8 @@ it('timesheet.calculateAndStorePay() should create a new timecard in the mongodb
     var sat = 0;
     var sun = 0;
     setTimeout(function () {
-        employee.save(function () {
-            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+        employee.save(function (err, emp) {
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, emp._id,
                 function (err, entry) {
                     // Wait for timesheet entry to be saved and returned
                     // Now we can try to find the timesheet entry, recall it, and compare with the original values
@@ -112,7 +112,6 @@ it('timesheet.calculateAndStorePay() should handle all negative hours', function
     employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
-    var totalHours = 0;
     var mon = -1;
     var tues = -2;
     var wed = -3;
@@ -121,8 +120,8 @@ it('timesheet.calculateAndStorePay() should handle all negative hours', function
     var sat = -6;
     var sun = -7;
     setTimeout(function () {
-        employee.save(function () {
-            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName);
+        employee.save(function (err, emp) {
+            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, emp._id);
             chai.expect(rtn).to.eql(false);
             done();
         });
@@ -146,7 +145,6 @@ it('timesheet.calculateAndStorePay() should handle some negative hours', functio
     employee.hourlyRate = 100000;
     employee.lastModified = new Date();
 
-    var totalHours = 24;
     var mon = -1;
     var tues = 8;
     var wed = -3;
@@ -155,8 +153,8 @@ it('timesheet.calculateAndStorePay() should handle some negative hours', functio
     var sat = 8;
     var sun = -7;
     setTimeout(function () {
-        employee.save(function () {
-            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName);
+        employee.save(function (err, emp) {
+            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, emp._id);
             chai.expect(rtn).to.eql(false);
             done();
         });
@@ -189,8 +187,8 @@ it('timesheet.calculateAndStorePay() should handle maximum num of hours in a wee
     var sat = 24;
     var sun = 24;
     setTimeout(function () {
-        employee.save(function () {
-            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+        employee.save(function (err, emp) {
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, emp._id,
                 function (err, entry) {
                     // Wait for timesheet entry to be saved and returned
                     // Now we can try to find the timesheet entry, recall it, and compare with the original values
@@ -235,8 +233,8 @@ it('timesheet.calculateAndStorePay() should handle more than maximum num of hour
     var sat = 24;
     var sun = 24;
     setTimeout(function () {
-        employee.save(function () {
-            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName);
+        employee.save(function (err, emp) {
+            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, emp._id);
             chai.expect(rtn).to.eql(false);
             done();
         });
@@ -269,8 +267,8 @@ it('timesheet.calculateAndStorePay() should handle zero hours in a week', functi
     var sat = 0;
     var sun = 0;
     setTimeout(function () {
-        employee.save(function () {
-            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+        employee.save(function (err, emp) {
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, emp._id,
                 function (err, entry) {
                     // Wait for timesheet entry to be saved and returned
                     // Now we can try to find the timesheet entry, recall it, and compare with the original values
@@ -316,8 +314,8 @@ it('timesheet.calculateAndStorePay() should handle zero hours in a week', functi
     var sat = 0;
     var sun = 5;
     setTimeout(function () {
-        employee.save(function () {
-            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName,
+        employee.save(function (err, emp) {
+            timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, emp._id,
                 function (err, entry) {
                     // Wait for timesheet entry to be saved and returned
                     // Now we can try to find the timesheet entry, recall it, and compare with the original values
@@ -355,7 +353,6 @@ it('timesheet.calculateAndStorePay() should handle more than twenty-four hours w
     employee.salary = 9900000;
     employee.lastModified = new Date();
 
-    var totalHours = 60;
     var mon = 36;
     var tues = 4;
     var wed = 4;
@@ -364,8 +361,8 @@ it('timesheet.calculateAndStorePay() should handle more than twenty-four hours w
     var sat = 4;
     var sun = 4;
     setTimeout(function () {
-        employee.save(function () {
-            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, employee.firstName, employee.lastName);
+        employee.save(function (err, emp) {
+            var rtn = timesheet.calculateAndStorePay(mon, tues, wed, thurs, fri, sat, sun, emp._id);
             chai.expect(rtn).to.eql(false);
             done();
         });

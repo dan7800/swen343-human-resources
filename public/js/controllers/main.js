@@ -49,6 +49,8 @@ angular.module('employeeController', [])
             document.getElementById("empZip").innerHTML="Zip Code: "+employee.zipCode;
             document.getElementById("empGender").innerHTML="Gender: "+employee.gender;
             document.getElementById("empRate").innerHTML="Hourly Rate: "+employee.hourlyRate;
+            document.getElementById("empCreateTimesheet").innerHTML="<button onclick=\"javascript:showCreateTimesheet()\">Create New Timesheet</button>";
+            document.getElementById("currentEmpID").value=employee._id;
             var employees = document.getElementById("employees");
             var createEmployee = document.getElementById("createEmployee");
             var createTimesheet = document.getElementById("createTimesheet");
