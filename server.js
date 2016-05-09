@@ -33,7 +33,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var port = 3000;
+var port = 8002;
 
 var router = express.Router();
 
