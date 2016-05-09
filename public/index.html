@@ -35,9 +35,9 @@
 
 </head>
 <header>
-    
+
     <div class="jumbotron text-center">
-        <h1>Human Resources App</h1>
+        <h1>Human Resources</h1>
     </div>
 </header>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
@@ -68,19 +68,17 @@
 <div id="createEmployee" class="hide">
     <form method="POST" action="/createEmployee">
         <fieldset>
-            First Name: <input type="text" name="firstName" required ng-model="formData.firstName"
-                               value="Brandon"><br>
-            Last Name: <input type="text" name="lastName" required ng-model="formData.lastName" value="Brandon"><br>
-            Position: <input type="text" name="position" ng-model="formData.position" value="Brandon"><br>
-            Department: <input type="text" name="department" ng-model="formData.department" value="Brandon"><br>
-            Street Address: <input type="text" name="streetAddress" required ng-model="formData.street"
-                                   value="Brandon"><br>
-            City: <input type="text" name="city" required ng-model="formData.city" value="Brandon"><br>
+            First Name: <input type="text" name="firstName" required ng-model="formData.firstName"><br>
+            Last Name: <input type="text" name="lastName" required ng-model="formData.lastName" ><br>
+            Position: <input type="text" name="position" ng-model="formData.position" required><br>
+            Department: <input type="text" name="department" ng-model="formData.department" required><br>
+            Street Address: <input type="text" name="streetAddress" required ng-model="formData.street"><br>
+            City: <input type="text" name="city" required ng-model="formData.city"><br>
             State: <input type="text" name="state" required ng-model="formData.state"><br>
             Zip Code: <input type="number" name="zipCode" required ng-model="formData.zipcode"><br>
-            Gender: <input type="text" name="gender" ng-model="formData.gender"><br>
+            Gender: <input type="text" name="gender" ng-model="formData.gender" required><br>
             Phone: <input type="number" name="phone" required ng-model="formData.phone"><br>
-            Date of Birth: <input type="date" name="DOB" ng-model="formData.dob"><br>
+            Date of Birth: <input type="date" name="DOB" ng-model="formData.dob" required><br>
             Hourly Rate: <input type="number" name="hourlyRate" required ng-model="formData.hourlyRate"><br>
         </fieldset>
         <input type="submit" value="Submit">
