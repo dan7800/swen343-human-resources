@@ -41,7 +41,7 @@
     <input type="text" ng-model="searchBox.lastName">
     <div id="employee-list" class="row">
             <div ng-repeat="employee in employees | filter: searchBox">
-                <button ng-click="fillEmployee(employee);">
+                <button ng-click="fillEmployee(employee);" class="employeeButton">
                     {{employee.lastName + ", " + employee.firstName}}
                 </button>
             </div>

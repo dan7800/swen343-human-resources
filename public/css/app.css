@@ -25,6 +25,11 @@ body{
     float:right;
 }
 
+.employeeButton{
+    width:173px;
+    text-overflow: ellipsis;
+    text-align:left;
+}
 .submit{
     height:30px;
     margin-top:10px;
