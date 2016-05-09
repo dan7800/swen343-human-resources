@@ -19,6 +19,7 @@ body{
     font-size:45;
     color:white;
     float:left;
+    cursor:pointer;
 }
 #navbuttons{
     padding:5px 5px 5px 0;
@@ -29,6 +30,7 @@ body{
     width:173px;
     text-overflow: ellipsis;
     text-align:left;
+    margin-bottom:5px;
 }
 .submit{
     height:30px;
