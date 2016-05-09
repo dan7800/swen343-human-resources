@@ -3,6 +3,7 @@
  */
 var Payroll = require('./payrollSchema');
 var Employee = require('../employees/employee');
+var Timesheet = require('../timesheets/timesheet');
 
 var http = require('http');
 var querystring = require('querystring');
@@ -15,20 +16,25 @@ module.exports.payEmployee = function (id, cb) {
                     console.log("Could not update latest payroll entry to {latest: false} due to ", err);
                 }
             });
-            var newPayroll = new Payroll();
-            newPayroll.employeeId = id;
-            newPayroll.paycheckAmount = obj['hourlyRate'];
-            newPayroll.datePaid = new Date();
-            newPayroll.lastModified = new Date();
-            newPayroll.latest = true;
-
-            newPayroll.save(new function (error, data) {
-                if (error) {
-                    console.log("Could not save new payroll due to error", error);
+            Timesheet.getHoursByEmployeeId(id, function (err, timesheet){
+                var newPayroll = new Payroll();
+                newPayroll.employeeId = id;
+                newPayroll.paycheckAmount = obj['hourlyRate'] * timesheet['total'];
+                newPayroll.datePaid = new Date();
+                newPayroll.lastModified = new Date();
+                newPayroll.latest = true;
+                newPayroll.save(new function (error, data) {
+                    if (error) {
+                        console.log("Could not save new payroll due to error", error);
+                    }
+                });
+                if (cb){
+                    cb();
                 }
             });
+        } else if (cb){
+            cb();
         }
-        cb();
     });
 };
 
