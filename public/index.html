@@ -40,29 +40,38 @@
     Search Employees by Last Name:<br>
     <input type="text" ng-model="searchBox.lastName">
     <div id="employee-list" class="row">
-            <div ng-repeat="employee in employees | filter: searchBox">
-                <button ng-click="fillEmployee(employee);" class="employeeButton">
-                    {{employee.lastName + ", " + employee.firstName}}
-                </button>
-            </div>
+        <div ng-repeat="employee in employees | filter: searchBox">
+            <button ng-click="fillEmployee(employee);" class="employeeButton">
+                {{employee.lastName + ", " + employee.firstName}}
+            </button>
+        </div>
     </div>
 </div>
 <div id="createEmployee" class="hide container">
     <div class="formTitle">Create a New Employee</div>
     <form method="POST" action="/createEmployee">
         <fieldset>
-            <label>First Name:</label> <input type="text" pattern="[A-Za-z\-]+" title="Letters and dashes only" name="firstName" required ng-model="formData.firstName"><br>
-            <label>Last Name:</label> <input type="text" pattern="[A-Za-z\-]+" title="Letters and dashes only" name="lastName" required ng-model="formData.lastName" ><br>
+            <label>First Name:</label> <input type="text" pattern="[A-Za-z\-]+" title="Letters and dashes only"
+                                              name="firstName" required ng-model="formData.firstName"><br>
+            <label>Last Name:</label> <input type="text" pattern="[A-Za-z\-]+" title="Letters and dashes only"
+                                             name="lastName" required ng-model="formData.lastName"><br>
             <label>Position:</label> <input type="text" name="position" ng-model="formData.position" required><br>
             <label>Department:</label> <input type="text" name="department" ng-model="formData.department" required><br>
-            <label>Street Address:</label> <input type="text" name="streetAddress" required ng-model="formData.street"><br>
+            <label>Street Address:</label> <input type="text" name="streetAddress" required
+                                                  ng-model="formData.street"><br>
             <label>City:</label> <input type="text" name="city" required ng-model="formData.city"><br>
             <label>State:</label> <input type="text" name="state" required ng-model="formData.state"><br>
-            <label>Zip Code:</label> <input type="text" pattern="^\d{5}$" title="Five digit zip code" name="zipCode" required ng-model="formData.zipcode"><br>
+            <label>Zip Code:</label> <input type="text" pattern="^\d{5}$" title="Five digit zip code" name="zipCode"
+                                            required ng-model="formData.zipcode"><br>
             <label>Gender:</label> <input type="text" name="gender" ng-model="formData.gender" required><br>
-            <label>Phone:</label> <input type="text" pattern="^\d{10}$" title="10 digit phone number, no dashes, must begin with country code" name="phone" required ng-model="formData.phone"><br>
-            <label>Date of Birth:</label> <input type="date" name="DOB" ng-model="formData.dob" required style="width:173px"><br>
-            <label>Hourly Rate:</label> <input type="text" pattern="^[+]?\d+([.]\d+)?$" title="Must be a positive number" name="hourlyRate" required ng-model="formData.hourlyRate"><br>
+            <label>Phone:</label> <input type="text" pattern="^\d{10}$"
+                                         title="10 digit phone number, no dashes, must begin with country code"
+                                         name="phone" required ng-model="formData.phone"><br>
+            <label>Date of Birth:</label> <input type="date" name="DOB" ng-model="formData.dob" required
+                                                 style="width:173px"><br>
+            <label>Hourly Rate:</label> <input type="text" pattern="^[+]?\d+([.]\d+)?$"
+                                               title="Must be a positive number" name="hourlyRate" required
+                                               ng-model="formData.hourlyRate"><br>
         </fieldset>
         <br>
         <input type="submit" value="Submit" class="submit">
@@ -75,13 +84,20 @@
     <form method="POST" action="/createTimecard">
         <fieldset>
             <input type="hidden" name="currentEmpID" id="currentEmpID" value="">
-            <label>Sunday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" title="Must work positive hours or zero" name="sun"><br>
-            <label>Monday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" title="Must work positive hours or zero" name="mon"><br>
-            <label>Tuesday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" title="Must work positive hours or zero" name="tues"><br>
-            <label>Wednesday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" title="Must work positive hours or zero" name="wed"><br>
-            <label>Thursday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" title="Must work positive hours or zero" name="thurs"><br>
-            <label>Friday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" title="Must work positive hours or zero" name="fri"><br>
-            <label>Saturday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$" title="Must work positive hours or zero" name="sat"><br>
+            <label>Sunday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$"
+                                          title="Must work positive hours or zero" name="sun"><br>
+            <label>Monday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$"
+                                          title="Must work positive hours or zero" name="mon"><br>
+            <label>Tuesday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$"
+                                           title="Must work positive hours or zero" name="tues"><br>
+            <label>Wednesday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$"
+                                             title="Must work positive hours or zero" name="wed"><br>
+            <label>Thursday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$"
+                                            title="Must work positive hours or zero" name="thurs"><br>
+            <label>Friday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$"
+                                          title="Must work positive hours or zero" name="fri"><br>
+            <label>Saturday:</label> <input type="text" pattern="^[+]?([.]\d+|\d+([.]\d+)?)$"
+                                            title="Must work positive hours or zero" name="sat"><br>
         </fieldset>
         <br>
         <input type="submit" value="Submit" class="submit">
@@ -107,6 +123,13 @@
             <input id="deletedEmployee" type="hidden" name="currentEmpID">
         </fieldset>
     </form>
+    <div id="timesheetsContainer">
+        <p>Most Recent Timesheets</p>
+        <table id="timesheet-list" class="row">
+            <td>Date:</td>
+            <td>Hours Worked:</td>
+        </table>
+    </div>
 </div>
 <script>
 

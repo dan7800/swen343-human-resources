@@ -74,6 +74,7 @@ angular.module('employeeController', [])
             if(displayEmployee.classList.contains("hide")) {
                 displayEmployee.classList.remove("hide");
             }
+            showTimesheets(employee._id);
         }
        
     });
