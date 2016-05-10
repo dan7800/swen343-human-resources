@@ -1,6 +1,7 @@
 # swen343-human-resources
 
-Description
+The Human Resource module for Engineering of Enterprise Subsystems.
+
 
 ## Requirements
     NPM 2.15.0
@@ -9,11 +10,10 @@ Description
 
 ## Installation
 
-    Clone the repo and to install all dependencies run:
+    Clone the repo, navigate to the cloned repo, and to install all dependencies run:
     npm install
+    
     Then to run our server:
     node server.js
-    visit localhost:3000
-
-## API
-
+    
+    Finally, visit http://localhost:8002 to access our web application.
