@@ -9,7 +9,6 @@ The Human Resource module for Engineering of Enterprise Subsystems.
 
 
 ## Installation
-
     Clone the repo, navigate to the cloned repo, and to install all dependencies run:
     npm install
     
@@ -17,3 +16,10 @@ The Human Resource module for Engineering of Enterprise Subsystems.
     node server.js
     
     Finally, visit http://localhost:8002 to access our web application.
+
+
+## Unit Testing
+    We have a comprehensive set of unit tests which can be run with npm via the command:
+    npm test <test path>
+    or to run all tests
+    npm test tests/
