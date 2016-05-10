@@ -23,7 +23,7 @@ var postToAccounting = module.exports.postToAccounting = function(id, paycheck) 
             qs: { apiKey: 'human_resources' },
             headers:
             {  'cache-control': 'no-cache' },
-            body: JSON.stringify({pay: paycheck, desc: desc})};
+            json: {pay: paycheck, desc: desc}};
 
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
