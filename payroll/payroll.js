@@ -20,9 +20,10 @@ var postToAccounting = module.exports.postToAccounting = function(id, paycheck) 
 
         var options = { method: 'POST',
             url: 'http://vm343a.se.rit.edu:6969/payroll',
-            qs: { apiKey: 'human_resources', pay: paycheck, description: desc },
+            qs: { apiKey: 'human_resources' },
             headers:
-            {  'cache-control': 'no-cache' } };
+            {  'cache-control': 'no-cache' },
+            body: {pay: paycheck, desc: desc}};
 
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
