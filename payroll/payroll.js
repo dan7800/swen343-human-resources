@@ -4,9 +4,34 @@
 var Payroll = require('./payrollSchema');
 var Employee = require('../employees/employee');
 var Timesheet = require('../timesheets/timesheet');
+var employeeModel = require('../employees/employeeSchema');
 
-var http = require('http');
-var querystring = require('querystring');
+var request = require("request");
+
+
+var postToAccounting = module.exports.postToAccounting = function(id, paycheck) {
+    // Get employee name
+    employeeModel.findById(id, function(err, emp) {
+        if (err) {
+            return false;
+        }
+        // Build the post string from an object
+        var desc = 'Employee payroll for ' + emp.firstName + ' ' + emp.lastName;
+
+        var options = { method: 'POST',
+            url: 'http://vm343a.se.rit.edu:6969/payroll',
+            qs: { apiKey: 'human_resources', pay: paycheck, description: desc },
+            headers:
+            {  'cache-control': 'no-cache' } };
+
+        request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log("Response", body);
+        });
+    });
+};
+
 
 module.exports.payEmployee = function (id, cb) {
     Employee.getHourlyRateByEmployeeId(id, function (err, obj) {
@@ -23,50 +48,24 @@ module.exports.payEmployee = function (id, cb) {
                 newPayroll.datePaid = new Date();
                 newPayroll.lastModified = new Date();
                 newPayroll.latest = true;
-                newPayroll.save(new function (error, data) {
+                newPayroll.save(function (error, data) {
                     if (error) {
                         console.log("Could not save new payroll due to error", error);
                     }
+                    if (data == null) {
+                        console.log("Failed to get payroll after saving it");
+                    } else {
+                        postToAccounting(id, data.paycheckAmount);
+                    }
+                    
+                    if (cb) {
+                        cb();
+                    }
                 });
-                if (cb){
-                    cb();
-                }
+                
             });
         } else if (cb){
             cb();
         }
     });
-};
-
-module.exports.postToAccounting = function(fName, lName, paycheck) {
-    // Build the post string from an object
-    var desc = 'Employee payroll for ' + fName + ' ' + lName;
-    var post_data = querystring.stringify({
-        apiKey: 'human_resources',
-        pay: paycheck,
-        description: desc
-    });
-
-    // An object of options to indicate where to post to
-    var post_options = {
-        host: 'localhost',
-        port: '6969',
-        path: '/payroll',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(post_data)
-        }
-    };
-
-    // Set up the request
-    var post_req = http.request(post_options, function(res) {
-        res.on('data', function (chunk) {
-            console.log('Response: ' + chunk);
-        });
-    });
-    
-    // post the data
-    post_req.write(post_data);
-    post_req.end();
 };

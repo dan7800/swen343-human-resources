@@ -41,9 +41,29 @@ it('Should post to accounting', function (done) {
     var write = sinon.spy(request, 'write');
 
     this.request.returns(request);
-    payroll.postToAccounting("Nick", "James", 100);
-    assert(write.withArgs(expected));
-    done();
+
+    var employee = new employeeModel();
+    employee.firstName = "Nick";
+    employee.lastName = "James";
+    employee.position = "SE";
+    employee.department = "Software";
+    employee.street = "607 Park Point";
+    employee.city = "Rochester";
+    employee.state = "NY";
+    employee.zipcode = 14623;
+    employee.gender = "Male";
+    employee.dob = "1995-08-18";
+    employee.phone = "123-456-7890";
+    employee.hourlyRate = 20;
+    employee.lastModified = new Date();
+
+    setTimeout(function () {
+        employee.save(function (err, emp) {
+            payroll.postToAccounting(emp._id, 100);
+            assert(write.withArgs(expected));
+            done();
+        });
+    }, 1000);
 });
 
 it('Paying an employee should create a new entry in the payroll table.', function (done) {

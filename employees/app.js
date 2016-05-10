@@ -10,15 +10,6 @@ var express = require("express");
 var router = express.Router();
 
 
-
-router.get('/', function(request, response) {
-    response.sendFile(path.normalize(path.join(__dirname, "..", "public", "listEmployees.html")));
-});
-
-router.get('/listEmployees', function (request, reponse) {
-
-});
-
 router.get('/createEmployee', function(request, response) {
     response.sendFile(path.normalize(path.join(__dirname, "..", "public", "addEmployee.html")));
 });
@@ -32,7 +23,5 @@ router.post('/deleteEmployee', function(request, response) {
     Employee.deleteEntry(request.body.currentEmpID);
     response.redirect('/');
 });
-
-
 
 module.exports = router;

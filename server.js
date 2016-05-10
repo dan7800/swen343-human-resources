@@ -60,14 +60,14 @@ employeeRoute.get(function(req, res) {
 // End Employee Interface
 
 // Start Timesheet Interface
-var timesheetRoute = router.route('/timesheets');
+var timesheetRoute = router.route('/timesheets/:id');
 
 timesheetRoute.get(function(req, res) {
-	Timesheet.find(function(err, timesheets) {
+	Timesheet.find({"employeeId": req.params.id}).sort({lastModified: -1}).exec(function(err, timesheet) {
 		if (err) {
 			res.send(err);
 		}
-		res.json(timesheets);
+		res.json(timesheet);
 	});
 });
 
